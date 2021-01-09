@@ -3,15 +3,19 @@ import 'package:mi_card/widgets/signIn.dart';
 import 'package:mi_card/widgets/signUp.dart';
 import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
 import 'package:mi_card/widgets/contacts/addContact.dart';
+import 'package:mi_card/widgets/welcome.dart';
 
 const String home = '/';
 const String signIn = '/signIn';
 const String signUp = '/signUp';
 const String addContact = '/addContact';
+const String welcome = '/welcome';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case welcome:
+        return MaterialPageRoute(builder: (_) => Formateacher());
       case home:
         return MaterialPageRoute(builder: (_) => BottomNav());
       case signIn:

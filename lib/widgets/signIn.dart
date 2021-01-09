@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
-import 'package:mi_card/main.dart';
 import 'package:mi_card/widgets/signUp.dart';
+import 'package:mi_card/widgets/welcome.dart';
 
 import 'animation/slideRight.dart';
 

@@ -24,6 +24,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Formateacher'),
       ),
       body: _children[_currentIndex],
@@ -38,7 +39,7 @@ class _BottomNavState extends State<BottomNav> {
           BottomNavigationBarItem(
               icon: new Icon(Icons.record_voice_over), label: 'Announce'),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.list),
+            icon: new Icon(Icons.speaker_notes),
             label: 'Templates',
           ),
           BottomNavigationBarItem(

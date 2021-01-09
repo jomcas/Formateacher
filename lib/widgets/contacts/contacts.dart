@@ -58,6 +58,7 @@ class Contacts extends StatelessWidget {
 class _ContactListItem extends ListTile {
   _ContactListItem(Contact contact)
       : super(
+            onTap: () {},
             title: new Text(contact.fullName),
             subtitle: new Text(contact.contactNumber),
             leading: new CircleAvatar(child: new Text(contact.fullName[0])));

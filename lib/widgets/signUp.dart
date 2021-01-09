@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/signIn.dart';
 import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
-import 'package:mi_card/main.dart';
+import 'package:mi_card/widgets/welcome.dart';
 
 import 'animation/slideRight.dart';
 
@@ -56,44 +56,6 @@ class SignUpPage extends StatelessWidget {
             Container(
               child: Column(
                 children: <Widget>[
-//                  SizedBox(
-//                      child: Row(
-//                    crossAxisAlignment: CrossAxisAlignment.end,
-//                    children: <Widget>[
-////                      SizedBox(
-////                        width: 180,
-////                        child: TextFormField(
-////                          decoration: InputDecoration(
-////                              border: InputBorder.none,
-////                              icon: Icon(Icons.lock,
-////                                  size: 50, color: Colors.black),
-////                              hintText: 'First Name'),
-////                          validator: (String value) {
-////                            if (value.trim().isEmpty) {
-////                              return 'Password is required';
-////                            } else {
-////                              return null;
-////                            }
-////                          },
-////                        ),
-////                      ),
-////                      SizedBox(
-////                        width: 180,
-////                        child: TextFormField(
-////                          decoration: InputDecoration(
-////                              border: InputBorder.none, hintText: 'Last Name'),
-////                          validator: (String value) {
-////                            if (value.trim().isEmpty) {
-////                              return 'Password is required';
-////                            } else {
-////                              return null;
-////                            }
-////                          },
-////                        ),
-////                      ),
-//                    ],
-//                  )),
-
                   SizedBox(
                     width: 400,
                     child: Padding(
