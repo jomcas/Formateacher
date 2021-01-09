@@ -1,16 +1,3 @@
 # formateacher
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+COVID – 19 brought to much burden to Teachers and Student. Because of the pandemic classes are implemented in an online classroom setup which is a big struggle to both students and teachers. The biggest problem that they are facing is miscommunication sometimes students do not understand the teacher’s / professor’s instruction or announcements which results to many private messages of students to teachers to make clarifications.
