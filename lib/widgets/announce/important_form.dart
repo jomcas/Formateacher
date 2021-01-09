@@ -35,7 +35,13 @@ class ImportantFormPage extends StatelessWidget {
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 0),
           ),
-          Text("Create Announcement",
+          Text("Create",
+              style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: 2.5)),
+          Text(" Announcement",
               style: TextStyle(
                   fontSize: 35,
                   fontWeight: FontWeight.bold,
@@ -73,7 +79,7 @@ class ImportantFormPage extends StatelessWidget {
                   height: 10,
                 ),
                 SizedBox(
-                  width: 300,
+                  width: 335,
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,

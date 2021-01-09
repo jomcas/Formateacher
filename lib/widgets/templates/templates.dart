@@ -15,6 +15,17 @@ class Templates extends StatelessWidget {
           margin: const EdgeInsets.all(4.0),
           padding: const EdgeInsets.only(top: 30),
         ),
+        Container(
+          padding: EdgeInsets.only(bottom: 100),
+          height: 150,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("images/template.png"),
+                  fit: BoxFit.fitHeight)),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         Text('Templates',
             style: TextStyle(
                 fontSize: 35,
@@ -29,24 +40,13 @@ class Templates extends StatelessWidget {
                   decoration: InputDecoration(
                       labelText: 'Search Template',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue[400])),
-                      prefixIcon: Icon(Icons.search, color: Colors.blue[400])),
+                          borderSide: BorderSide(color: Colors.black)),
+                      prefixIcon: Icon(Icons.search, color: Colors.black)),
                 ))
               ],
             )),
         Expanded(child: TemplatePage(kTemplates)),
       ]))),
-      floatingActionButton: Container(
-        height: 60.0,
-        width: 60.0,
-        child: FittedBox(
-          child: FloatingActionButton(
-              elevation: 0.0,
-              child: new Icon(Icons.add),
-              backgroundColor: Colors.blue[400],
-              onPressed: () {}),
-        ),
-      ),
     );
   }
 }

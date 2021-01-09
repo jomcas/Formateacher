@@ -28,7 +28,7 @@ class Announce extends StatelessWidget {
                     fontSize: 13,
                     color: Colors.black,
                     letterSpacing: 0)),
-            SizedBox(height: 50),
+            SizedBox(height: 15),
             GridView.count(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -50,18 +50,22 @@ class Announce extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    color: Colors.yellow,
+                    color: Colors.white,
                     margin: EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        Icon(
-                          Icons.error,
-                          size: 80,
+                        Container(
+                          padding: EdgeInsets.only(bottom: 100),
+                          height: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("images/important.png"),
+                                  fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
                           title: Text(
-                            'Important',
+                            ' Important',
                             style: TextStyle(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
@@ -86,14 +90,18 @@ class Announce extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    color: Colors.orange,
+                    color: Colors.white,
                     margin: EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        Icon(
-                          Icons.schedule,
-                          size: 80,
+                        Container(
+                          padding: EdgeInsets.only(bottom: 100),
+                          height: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("images/clock.png"),
+                                  fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
                           title: Text(
@@ -122,14 +130,18 @@ class Announce extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    color: Colors.red,
+                    color: Colors.white,
                     margin: EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        Icon(
-                          Icons.notifications,
-                          size: 80,
+                        Container(
+                          padding: EdgeInsets.only(bottom: 100),
+                          height: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("images/reminder.png"),
+                                  fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
                           title: Text(
@@ -158,14 +170,18 @@ class Announce extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    color: Colors.yellow,
+                    color: Colors.white,
                     margin: EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         SizedBox(height: 20),
-                        Icon(
-                          Icons.fact_check,
-                          size: 80,
+                        Container(
+                          padding: EdgeInsets.only(bottom: 100),
+                          height: 100,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("images/todolist.png"),
+                                  fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
                           title: Text(
