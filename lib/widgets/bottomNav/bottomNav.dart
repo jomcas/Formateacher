@@ -23,15 +23,14 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Formateacher'),
-      ),
+//      appBar: AppBar(
+//        title: Text('Formateacher'),
+//      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
-        backgroundColor: Colors.blue[400],
+        backgroundColor: Color(0xff0795A8),
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,

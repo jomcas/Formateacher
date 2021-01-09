@@ -11,14 +11,15 @@ class Profile extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 75),
+              padding: const EdgeInsets.only(top: 20),
             ),
             CircleAvatar(
-              radius: 75,
-              backgroundColor: Colors.grey[900],
+              radius: 100,
+              backgroundColor: Colors.white,
               child: CircleAvatar(
-                radius: 70,
-                backgroundImage: AssetImage('images/logo.png'),
+                radius: 150,
+                backgroundImage: AssetImage('images/Avatar.png'),
+                backgroundColor: Colors.white,
               ),
             ),
             Text('Jom Cas',
@@ -73,20 +74,19 @@ class Profile extends StatelessWidget {
                 )),
             Container(
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 25),
+              padding: const EdgeInsets.only(top: 100),
             ),
             SizedBox(
-                width: 360,
-                height: 40,
+                width: 400,
                 child: RaisedButton(
                     onPressed: () {
                       Navigator.pop(
                         context,
                       );
                     },
-                    color: Colors.grey[800],
-                    child: Text('Log Out',
-                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                    color: Colors.white,
+                    child: Text('Sign out',
+                        style: TextStyle(fontSize: 25, color: Colors.red)),
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(10.0)))),
           ],
