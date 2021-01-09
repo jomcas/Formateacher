@@ -29,6 +29,8 @@ class Contacts extends StatelessWidget {
                     color: Colors.black,
                     letterSpacing: 0)),
           ],
-        )));
+        ),
+        ),
+    );
   }
 }

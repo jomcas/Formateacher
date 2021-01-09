@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/signUp.dart';
 import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
+import 'package:mi_card/main.dart';
 
 class SignIn extends StatelessWidget {
   @override
@@ -13,99 +14,127 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Inter'),
       home: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          brightness: Brightness.light,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> Formateacher()));
+            },
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              size: 30,
+              color: Colors.black,
+            ),
+          ),
+        ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(
           children: <Widget>[
             Container(
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 150),
+              padding: const EdgeInsets.only(top: 10),
             ),
-            CircleAvatar(
-              radius: 105,
-              backgroundColor: Colors.grey[900],
-              child: CircleAvatar(
-                radius: 100,
-                backgroundImage: AssetImage('images/logo.png'),
-              ),
+            Container(
+              padding: EdgeInsets.only(bottom: 100),
+              height: 150,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("images/logo.png"),
+                      fit: BoxFit.fitHeight)),
             ),
-            Text('Welcome Back!',
-                style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 35,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                    letterSpacing: 0)),
+            Column(
+              children: <Widget>[
+                Text(
+                  "Welcome Back!",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Login to your account",
+                  style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                ),
+              ],
+            ),
             Container(
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 10),
             ),
             Container(
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    width: 360,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon:
-                              Icon(Icons.email, size: 50, color: Colors.black),
-                          hintText: 'Email'),
-                      validator: (String value) {
-                        if (value.trim().isEmpty) {
-                          return 'Email is required';
-                        } else {
-                          return null;
-                        }
-                      },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: Column(
+                        children: <Widget>[
+                          inputFile(label: "Email:"),
+                          inputFile(label: "Password:", obscureText: true)
+                        ],
+                      ),
                     ),
                   ),
                   Divider(),
+//                  SizedBox(
+//                    width: 360,
+//                    child: TextFormField(
+//                      decoration: InputDecoration(
+//                          border: InputBorder.none,
+//                          icon: Icon(Icons.lock, size: 50, color: Colors.black),
+//                          hintText: 'Password'),
+//                      validator: (String value) {
+//                        if (value.trim().isEmpty) {
+//                          return 'Password is required';
+//                        } else {
+//                          return null;
+//                        }
+//                      },
+//                    ),
+//                  ),
+//                  Divider(),
                   SizedBox(
-                    width: 360,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(Icons.lock, size: 50, color: Colors.black),
-                          hintText: 'Password'),
-                      validator: (String value) {
-                        if (value.trim().isEmpty) {
-                          return 'Password is required';
-                        } else {
-                          return null;
-                        }
+                    width: 335,
+                    child: MaterialButton(
+                      minWidth: double.infinity,
+                      height: 60,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          SlideRightRoute(page: BottomNav()),
+                        );
                       },
+                      color: Color(0xff0795A8),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  Divider(),
-                  SizedBox(
-                      width: 360,
-                      height: 40,
-                      child: RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              SlideRightRoute(page: BottomNav()),
-                            );
-                          },
-                          color: Colors.blue[400],
-                          child: Text('Sign In',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white)),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)))),
                   SizedBox(
                       width: 360,
                       child: FlatButton(
                         onPressed: () {
                           Navigator.push(
                             context,
-                            SlideRightRoute(page: SignUp()),
+                            SlideRightRoute(page: SignUpPage()),
                           );
                         },
-                        child: Text('Dont have an account yet? Sign Up Here!',
+                        child: Text('Dont have an account? Sign Up',
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w700)),
                       )),
