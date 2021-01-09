@@ -71,7 +71,12 @@ class Announce extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImportantForm()));
+                  },
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -102,7 +107,12 @@ class Announce extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImportantForm()));
+                  },
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -133,7 +143,12 @@ class Announce extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImportantForm()));
+                  },
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius:

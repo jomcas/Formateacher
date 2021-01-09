@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mi_card/widgets/signIn.dart';
-import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
-
-import 'package:mi_card/widgets/animation/slideRight.dart';
+import 'package:mi_card/widgets/announce/preview.dart';
 
 class ImportantForm extends StatelessWidget {
   @override
@@ -83,7 +80,7 @@ class ImportantFormPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BottomNav()),
+                        MaterialPageRoute(builder: (context) => Preview()),
                       );
                     },
                     color: Color(0xff0795A8),
