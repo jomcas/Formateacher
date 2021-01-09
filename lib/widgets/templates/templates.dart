@@ -40,8 +40,8 @@ class Templates extends StatelessWidget {
                   decoration: InputDecoration(
                       labelText: 'Search Template',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue[400])),
-                      prefixIcon: Icon(Icons.search, color: Colors.blue[400])),
+                          borderSide: BorderSide(color: Colors.black)),
+                      prefixIcon: Icon(Icons.search, color: Colors.black)),
                 ))
               ],
             )),
