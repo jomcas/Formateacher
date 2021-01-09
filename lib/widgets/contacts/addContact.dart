@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
-import 'package:mi_card/widgets/signUp.dart';
 
-import 'animation/slideRight.dart';
-
-class SignIn extends StatelessWidget {
+class AddContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SignInPage();
+    return AddContactPage();
   }
 }
 
-class SignInPage extends StatelessWidget {
+class AddContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey[100],
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          color: Colors.blue[400],
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Column(
         children: <Widget>[
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 150),
+            padding: const EdgeInsets.only(top: 200),
           ),
-          CircleAvatar(
-            radius: 105,
-            backgroundColor: Colors.grey[900],
-            child: CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('images/logo.png'),
-            ),
-          ),
-          Text('Welcome Back!',
+          Text('Add Contacts',
               style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 35,
@@ -50,8 +47,8 @@ class SignInPage extends StatelessWidget {
                   child: TextFormField(
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        icon: Icon(Icons.email, size: 50, color: Colors.black),
-                        hintText: 'Email'),
+                        icon: Icon(Icons.person, size: 50, color: Colors.black),
+                        hintText: 'Name'),
                     validator: (String value) {
                       if (value.trim().isEmpty) {
                         return 'Email is required';
@@ -67,8 +64,8 @@ class SignInPage extends StatelessWidget {
                   child: TextFormField(
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        icon: Icon(Icons.lock, size: 50, color: Colors.black),
-                        hintText: 'Password'),
+                        icon: Icon(Icons.phone, size: 50, color: Colors.black),
+                        hintText: 'Phone Number'),
                     validator: (String value) {
                       if (value.trim().isEmpty) {
                         return 'Password is required';
@@ -83,12 +80,9 @@ class SignInPage extends StatelessWidget {
                     width: 360,
                     height: 40,
                     child: RaisedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context, SlideRightRoute(page: BottomNav()));
-                        },
+                        onPressed: () {},
                         color: Colors.blue[400],
-                        child: Text('Sign In',
+                        child: Text('Add',
                             style:
                                 TextStyle(fontSize: 18, color: Colors.white)),
                         shape: RoundedRectangleBorder(
@@ -96,11 +90,8 @@ class SignInPage extends StatelessWidget {
                 SizedBox(
                     width: 360,
                     child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context, SlideRightRoute(page: SignUp()));
-                      },
-                      child: Text('Dont have an account yet? Sign Up Here!',
+                      onPressed: () {},
+                      child: Text('Select From Contacts',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w700)),
                     )),

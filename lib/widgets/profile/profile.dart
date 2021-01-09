@@ -70,7 +70,25 @@ class Profile extends StatelessWidget {
                       ),
                     ],
                   ),
-                ))
+                )),
+            Container(
+              margin: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.only(top: 25),
+            ),
+            SizedBox(
+                width: 360,
+                height: 40,
+                child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                      );
+                    },
+                    color: Colors.grey[800],
+                    child: Text('Log Out',
+                        style: TextStyle(fontSize: 18, color: Colors.white)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)))),
           ],
         )));
   }
