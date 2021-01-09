@@ -150,6 +150,10 @@ class PreviewPage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                SizedBox(
+                  height: 25,
+                ),
               ],
             ),
           )

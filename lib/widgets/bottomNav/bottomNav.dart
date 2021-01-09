@@ -30,10 +30,11 @@ class _BottomNavState extends State<BottomNav> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
-        backgroundColor: Color(0xff0795A8),
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white,
+        backgroundColor: Colors.white,
+        selectedItemColor: Color(0xff0795A8),
+        unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
+
         items: [
           BottomNavigationBarItem(
               icon: new Icon(Icons.record_voice_over), label: 'Announce'),

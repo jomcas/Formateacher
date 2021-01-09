@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi_card/widgets/welcome.dart';
 
 // Announce Page
 class Profile extends StatelessWidget {
@@ -81,9 +82,10 @@ class Profile extends StatelessWidget {
                 height: 200,
                 child: RaisedButton(
                     onPressed: () {
-                      Navigator.pop(
-                        context,
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Formateacher()));
                     },
                     color: Colors.white,
                     child: Text('Sign out',

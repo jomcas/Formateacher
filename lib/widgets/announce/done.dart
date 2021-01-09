@@ -40,13 +40,13 @@ class DonePage extends StatelessWidget {
           Container(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 Container(
                   padding: EdgeInsets.only(bottom: 100),
-                  height: 350,
+                  height: 235,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("images/add.png"),
+                          image: AssetImage("images/done.png"),
                           fit: BoxFit.fitHeight)),
                 ),
                 SizedBox(height: 50),
@@ -61,18 +61,13 @@ class DonePage extends StatelessWidget {
                         SlideRightRoute(page: BottomNav()),
                       );
                     },
-                    color: Color(0xff0795A8),
-                    elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
+                        side: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.circular(25)),
                     child: Text(
-                      "Back To Home",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
+                      "Back to Home",
+                      style:
+                      TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
                 ),

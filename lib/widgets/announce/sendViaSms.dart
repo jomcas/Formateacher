@@ -63,7 +63,7 @@ class SendViaSms extends StatelessWidget {
               elevation: 0.0,
               icon: Icon(Icons.send),
               label: Text('Confirm Send'),
-              backgroundColor: Color(0xff0795A8),
+              backgroundColor: Colors.green[700],
               onPressed: () {
                 Navigator.push(
                   context,
