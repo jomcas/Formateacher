@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:mi_card/widgets/signUp.dart';
 class AddContact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,12 +12,18 @@ class AddContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey[100],
-        leading: BackButton(
+        elevation: 0,
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+        leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          color: Colors.blue[400],
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            size: 30,
+            color: Colors.black,
+          ),
         ),
       ),
       backgroundColor: Colors.white,
@@ -26,7 +32,18 @@ class AddContactPage extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 200),
+            padding: const EdgeInsets.only(top: 5),
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 100),
+            height: 150,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/add.png"),
+                    fit: BoxFit.fitHeight)),
+          ),
+          SizedBox(
+            height: 5,
           ),
           Text('Add Contacts',
               style: TextStyle(
@@ -37,64 +54,54 @@ class AddContactPage extends StatelessWidget {
                   letterSpacing: 0)),
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 10),
           ),
           Container(
             child: Column(
               children: <Widget>[
+                Divider(),
                 SizedBox(
-                  width: 360,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        icon: Icon(Icons.person, size: 50, color: Colors.black),
-                        hintText: 'Name'),
-                    validator: (String value) {
-                      if (value.trim().isEmpty) {
-                        return 'Email is required';
-                      } else {
-                        return null;
-                      }
-                    },
+                  width: 400,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      children: <Widget>[
+                        inputFile(label: "Name:"),
+                        inputFile(label: "Phone Number:")
+                      ],
+                    ),
                   ),
                 ),
                 Divider(),
                 SizedBox(
-                  width: 360,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        icon: Icon(Icons.phone, size: 50, color: Colors.black),
-                        hintText: 'Phone Number'),
-                    validator: (String value) {
-                      if (value.trim().isEmpty) {
-                        return 'Password is required';
-                      } else {
-                        return null;
-                      }
-                    },
-                  ),
+                  width: 300,
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {},
+                    color: Colors.blueGrey,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Text(
+                      "Add",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),),
+                SizedBox(
+                    width: 360,
+//                    child: FlatButton(
+//                      onPressed: () {},
+//                      child: Text('Select From Contacts',
+//                          style: TextStyle(
+//                              fontSize: 16, fontWeight: FontWeight.w700)),
+//                    )
                 ),
-                Divider(),
-                SizedBox(
-                    width: 360,
-                    height: 40,
-                    child: RaisedButton(
-                        onPressed: () {},
-                        color: Colors.blue[400],
-                        child: Text('Add',
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.white)),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(10.0)))),
-                SizedBox(
-                    width: 360,
-                    child: FlatButton(
-                      onPressed: () {},
-                      child: Text('Select From Contacts',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700)),
-                    )),
               ],
             ),
           )

@@ -12,9 +12,22 @@ class Contacts extends StatelessWidget {
               child: Column(children: <Widget>[
         Container(
           margin: const EdgeInsets.all(4.0),
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 20),
         ),
-        Text('Contacts',
+        Container(
+          padding: EdgeInsets.only(bottom: 100),
+          height: 150,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("images/phonebook.png"),
+                  fit: BoxFit.fitHeight)),
+        ),
+        Container(
+          margin: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.only(top: 5),
+        ),
+
+        Text('Phonebook',
             style: TextStyle(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
@@ -28,8 +41,8 @@ class Contacts extends StatelessWidget {
                   decoration: InputDecoration(
                       labelText: 'Search Contact',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue[400])),
-                      prefixIcon: Icon(Icons.search, color: Colors.blue[400])),
+                          borderSide: BorderSide(color: Colors.black)),
+                      prefixIcon: Icon(Icons.search, color: Colors.black)),
                 ))
               ],
             )),
@@ -41,8 +54,8 @@ class Contacts extends StatelessWidget {
         child: FittedBox(
           child: FloatingActionButton(
               elevation: 0.0,
-              child: new Icon(Icons.add),
-              backgroundColor: Colors.blue[400],
+              child: new Icon(Icons.add_call),
+              backgroundColor: Color(0xff0795A8),
               onPressed: () {
                 Navigator.push(
                   context,
