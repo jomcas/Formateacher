@@ -74,10 +74,11 @@ class Profile extends StatelessWidget {
                 )),
             Container(
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 25),
             ),
             SizedBox(
                 width: 400,
+                height: 200,
                 child: RaisedButton(
                     onPressed: () {
                       Navigator.pop(
