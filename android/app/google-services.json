@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "158418266325",
+    "project_id": "formateacher-ffe67",
+    "storage_bucket": "formateacher-ffe67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158418266325:android:da4002c9e126f9549cda5c",
+        "android_client_info": {
+          "package_name": "com.example.formateacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158418266325-itkrervql36d37gr15sfajh78rpv83c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd_uM7YefbYM4-_8AuFTM4tIdLKhxPJGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158418266325-itkrervql36d37gr15sfajh78rpv83c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

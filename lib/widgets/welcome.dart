@@ -54,10 +54,8 @@ class Formateacher extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignInPage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SignIn()));
                     },
                     //defining the shape
                     shape: RoundedRectangleBorder(
@@ -74,10 +72,8 @@ class Formateacher extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpPage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SignUp()));
                     },
                     //defining the shape
                     color: Color(0xff0795A8),

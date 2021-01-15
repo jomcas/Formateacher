@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/done.dart';
 import 'package:mi_card/widgets/contacts/contactsModel.dart';
-import 'package:mi_card/widgets/contacts/addContact.dart';
 
 // Announce Page
 class SendViaSms extends StatelessWidget {

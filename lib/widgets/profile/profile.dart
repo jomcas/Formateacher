@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mi_card/widgets/welcome.dart';
+import 'package:mi_card/services/auth.dart';
 
 // Announce Page
 class Profile extends StatelessWidget {
@@ -82,10 +82,7 @@ class Profile extends StatelessWidget {
                 height: 200,
                 child: RaisedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Formateacher()));
+                      showAlertDialog(context);
                     },
                     color: Colors.white,
                     child: Text('Sign out',
@@ -95,4 +92,42 @@ class Profile extends StatelessWidget {
           ],
         )));
   }
+}
+
+showAlertDialog(BuildContext context) {
+  final AuthService _auth = AuthService();
+
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text(
+      "Log Out",
+      style: TextStyle(color: Colors.red, fontWeight: FontWeight.w400),
+    ),
+    onPressed: () async {
+      Navigator.pop(context);
+      await _auth.signOut();
+    },
+  );
+
+  AlertDialog alert = AlertDialog(
+    title: Text("Log Out"),
+    content: Text("Would you really want to log out?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

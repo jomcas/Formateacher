@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/signIn.dart';
 import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
-import 'package:mi_card/widgets/welcome.dart';
 
 import 'animation/slideRight.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: SignUpPage());
-  }
+  _SignUpState createState() => _SignUpState();
 }
 
-class SignUpPage extends StatelessWidget {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,8 +22,7 @@ class SignUpPage extends StatelessWidget {
           backgroundColor: Colors.white,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Formateacher()));
+              Navigator.pop(context);
             },
             icon: Icon(
               Icons.arrow_back_rounded,
@@ -109,7 +105,7 @@ class SignUpPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            SlideRightRoute(page: SignInPage()),
+                            SlideRightRoute(page: SignIn()),
                           );
                         },
                         child: Text('Alreday have an account? Sign In',

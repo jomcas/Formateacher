@@ -87,7 +87,7 @@ class PreviewPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            SlideRightRoute(page: SignUpPage()),
+                            SlideRightRoute(page: SignUp()),
                           );
                         },
                         child: Align(
@@ -150,7 +150,6 @@ class PreviewPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(
                   height: 25,
                 ),
