@@ -110,7 +110,7 @@ class _SignInState extends State<SignIn> {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () async {
-                              // May bug na kapag mali yung login mapupunta sa welcome
+                              // May bug na kapag mali yung login mapupunta sa welcome aayisin pa
 
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
@@ -118,7 +118,6 @@ class _SignInState extends State<SignIn> {
                                 dynamic result =
                                     await _auth.signInWithEmailAndPassword(
                                         email, password);
-
                                 Navigator.pop(context);
                                 loading = false;
                                 if (result == null) {

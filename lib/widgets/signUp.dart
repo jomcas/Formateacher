@@ -103,6 +103,7 @@ class _SignUpState extends State<SignUp> {
                           minWidth: double.infinity,
                           height: 60,
                           onPressed: () async {
+                            // May bug na kapag mali yung login mapupunta sa welcome aayisin pa
                             if (_formKey.currentState.validate()) {
                               setState(() => loading = true);
                               dynamic result =
