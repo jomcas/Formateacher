@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
 import 'package:mi_card/widgets/shared/loading.dart';
@@ -16,8 +17,27 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   String error = '';
+  String lname = '';
+  String fname = '';
   String email = '';
   String password = '';
+  String phone = '';
+
+
+  //Add data to database firestore
+  Map data;
+
+  addData(){
+
+    Map<String, dynamic> demoData = {"Lname" : lname,
+      "Fname" : fname,
+      "Email" : email,
+      "Password" : password,
+      "Phone" : phone,
+    };
+    CollectionReference collectionReference = Firestore.instance.collection('data');
+    collectionReference.add(demoData);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,25 +90,48 @@ class _SignUpState extends State<SignUp> {
                               children: <Widget>[
                                 inputFile(
                                   label: "Last Name:",
+                                  validator: (val) =>
+                                      val.isEmpty ? 'Enter Last Name' : null,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      lname = val;
+                                    });
+                                  }
                                 ),
-                                inputFile(label: "First Name:"),
+                                inputFile(label: "First Name:",
+                                    validator: (val) =>
+                                    val.isEmpty ? 'Enter First Name' : null,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        fname = val;
+                                      });
+                                    }
+                                ),
                                 inputFile(
                                     label: "Email:",
                                     validator: (val) =>
-                                        val.isEmpty ? 'Enter an email' : null,
+                                        val.isEmpty ? 'Enter Your Email Address' : null,
                                     onChanged: (val) {
                                       setState(() => email = val);
                                     }),
                                 inputFile(
                                     label: "Password:",
                                     validator: (val) => val.length < 6
-                                        ? 'Enter a password 6+ chars long'
+                                        ? 'Enter Password minimum of 6 characters'
                                         : null,
                                     obscureText: true,
                                     onChanged: (val) {
                                       setState(() => password = val);
                                     }),
-                                inputFile(label: "Phone Number:"),
+                                inputFile(label: "Phone Number:",
+                                    validator: (val) =>
+                                    val.isEmpty ? 'Enter Phone Number' : null,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        phone = val;
+                                      });
+                                    }
+                                ),
                               ],
                             ),
                           ),
@@ -105,6 +148,7 @@ class _SignUpState extends State<SignUp> {
                           onPressed: () async {
                             // May bug na kapag mali yung login mapupunta sa welcome aayisin pa
                             if (_formKey.currentState.validate()) {
+                              addData();
                               setState(() => loading = true);
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
