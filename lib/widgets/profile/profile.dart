@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
 
+
 // Announce Page
 class Profile extends StatelessWidget {
   @override
@@ -98,14 +99,14 @@ showAlertDialog(BuildContext context) {
   final AuthService _auth = AuthService();
 
   Widget cancelButton = FlatButton(
-    child: Text("Cancel"),
+    child: Text("CANCEL",style: TextStyle(color: Colors.grey)),
     onPressed: () {
       Navigator.pop(context);
     },
   );
   Widget continueButton = FlatButton(
     child: Text(
-      "Log Out",
+      "SIGN OUT",
       style: TextStyle(color: Colors.red, fontWeight: FontWeight.w400),
     ),
     onPressed: () async {
@@ -115,8 +116,9 @@ showAlertDialog(BuildContext context) {
   );
 
   AlertDialog alert = AlertDialog(
-    title: Text("Log Out"),
-    content: Text("Would you really want to log out?"),
+    title: Icon(Icons.announcement,
+      size: 50, color: Colors.black),
+    content: Text("  Do you really want to log out?"),
     actions: [
       cancelButton,
       continueButton,

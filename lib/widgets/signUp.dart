@@ -35,7 +35,7 @@ class _SignUpState extends State<SignUp> {
       "Password" : password,
       "Phone" : phone,
     };
-    CollectionReference collectionReference = Firestore.instance.collection('data');
+    CollectionReference collectionReference = Firestore.instance.collection('UserInfo');
     collectionReference.add(demoData);
   }
 
