@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 import 'package:mi_card/widgets/shared/loading.dart';
 import 'package:mi_card/widgets/signUp.dart';
 import 'animation/slideRight.dart';
@@ -110,22 +111,23 @@ class _SignInState extends State<SignIn> {
                             minWidth: double.infinity,
                             height: 60,
                             onPressed: () async {
-                              // May bug na kapag mali yung login mapupunta sa welcome aayisin pa
-
                               if (_formKey.currentState.validate()) {
                                 setState(() => loading = true);
 
                                 dynamic result =
                                     await _auth.signInWithEmailAndPassword(
                                         email, password);
-                                Navigator.pop(context);
-                                loading = false;
                                 if (result == null) {
                                   setState(() {
                                     error =
                                         'Could not sign in with those credentials';
                                     loading = false;
+                                    showAlertDialogOneButton(
+                                        context, 'Login Error', error, 'OK');
                                   });
+                                } else {
+                                  Navigator.pop(context);
+                                  loading = false;
                                 }
                               }
                             },

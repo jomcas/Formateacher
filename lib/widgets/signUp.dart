@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 import 'package:mi_card/widgets/shared/loading.dart';
 import 'package:mi_card/widgets/signIn.dart';
 
@@ -23,19 +24,19 @@ class _SignUpState extends State<SignUp> {
   String password = '';
   String phone = '';
 
-
   //Add data to database firestore
   Map data;
 
-  addData(){
-
-    Map<String, dynamic> demoData = {"Lname" : lname,
-      "Fname" : fname,
-      "Email" : email,
-      "Password" : password,
-      "Phone" : phone,
+  addData() {
+    Map<String, dynamic> demoData = {
+      "Lname": lname,
+      "Fname": fname,
+      "Email": email,
+      "Password": password,
+      "Phone": phone,
     };
-    CollectionReference collectionReference = Firestore.instance.collection('UserInfo');
+    CollectionReference collectionReference =
+        Firestore.instance.collection('UserInfo');
     collectionReference.add(demoData);
   }
 
@@ -89,28 +90,28 @@ class _SignUpState extends State<SignUp> {
                             child: Column(
                               children: <Widget>[
                                 inputFile(
-                                  label: "Last Name:",
-                                  validator: (val) =>
-                                      val.isEmpty ? 'Enter Last Name' : null,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      lname = val;
-                                    });
-                                  }
-                                ),
-                                inputFile(label: "First Name:",
+                                    label: "Last Name:",
                                     validator: (val) =>
-                                    val.isEmpty ? 'Enter First Name' : null,
+                                        val.isEmpty ? 'Enter Last Name' : null,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        lname = val;
+                                      });
+                                    }),
+                                inputFile(
+                                    label: "First Name:",
+                                    validator: (val) =>
+                                        val.isEmpty ? 'Enter First Name' : null,
                                     onChanged: (val) {
                                       setState(() {
                                         fname = val;
                                       });
-                                    }
-                                ),
+                                    }),
                                 inputFile(
                                     label: "Email:",
-                                    validator: (val) =>
-                                        val.isEmpty ? 'Enter Your Email Address' : null,
+                                    validator: (val) => val.isEmpty
+                                        ? 'Enter Your Email Address'
+                                        : null,
                                     onChanged: (val) {
                                       setState(() => email = val);
                                     }),
@@ -123,15 +124,16 @@ class _SignUpState extends State<SignUp> {
                                     onChanged: (val) {
                                       setState(() => password = val);
                                     }),
-                                inputFile(label: "Phone Number:",
-                                    validator: (val) =>
-                                    val.isEmpty ? 'Enter Phone Number' : null,
+                                inputFile(
+                                    label: "Phone Number:",
+                                    validator: (val) => val.isEmpty
+                                        ? 'Enter Phone Number'
+                                        : null,
                                     onChanged: (val) {
                                       setState(() {
                                         phone = val;
                                       });
-                                    }
-                                ),
+                                    }),
                               ],
                             ),
                           ),
@@ -146,7 +148,6 @@ class _SignUpState extends State<SignUp> {
                           minWidth: double.infinity,
                           height: 60,
                           onPressed: () async {
-                            // May bug na kapag mali yung login mapupunta sa welcome aayisin pa
                             if (_formKey.currentState.validate()) {
                               addData();
                               setState(() => loading = true);
@@ -155,9 +156,15 @@ class _SignUpState extends State<SignUp> {
                                       email, password);
                               if (result == null) {
                                 setState(() {
+                                  error =
+                                      'Could not sign up with those credentials';
                                   loading = false;
-                                  error = 'Please supply a valid email';
+                                  showAlertDialogOneButton(
+                                      context, 'Register Error', error, 'OK');
                                 });
+                              } else {
+                                Navigator.pop(context);
+                                loading = false;
                               }
                             }
                           },

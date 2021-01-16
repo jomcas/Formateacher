@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
-
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 
 // Announce Page
 class Profile extends StatelessWidget {
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +84,16 @@ class Profile extends StatelessWidget {
                 height: 200,
                 child: RaisedButton(
                     onPressed: () {
-                      showAlertDialog(context);
+                      showAlertDialogTwoButtons(
+                          context,
+                          Icon(Icons.announcement,
+                              size: 50, color: Colors.black),
+                          'Do you really want to log out?',
+                          'CANCEL',
+                          'CONTINUE', () async {
+                        Navigator.pop(context);
+                        await _auth.signOut();
+                      });
                     },
                     color: Colors.white,
                     child: Text('Sign out',
@@ -93,43 +103,4 @@ class Profile extends StatelessWidget {
           ],
         )));
   }
-}
-
-showAlertDialog(BuildContext context) {
-  final AuthService _auth = AuthService();
-
-  Widget cancelButton = FlatButton(
-    child: Text("CANCEL",style: TextStyle(color: Colors.grey)),
-    onPressed: () {
-      Navigator.pop(context);
-    },
-  );
-  Widget continueButton = FlatButton(
-    child: Text(
-      "SIGN OUT",
-      style: TextStyle(color: Colors.red, fontWeight: FontWeight.w400),
-    ),
-    onPressed: () async {
-      Navigator.pop(context);
-      await _auth.signOut();
-    },
-  );
-
-  AlertDialog alert = AlertDialog(
-    title: Icon(Icons.announcement,
-      size: 50, color: Colors.black),
-    content: Text("  Do you really want to log out?"),
-    actions: [
-      cancelButton,
-      continueButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
 }
