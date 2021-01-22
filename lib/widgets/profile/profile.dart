@@ -88,7 +88,7 @@ class Profile extends StatelessWidget {
                           context,
                           Icon(Icons.announcement,
                               size: 50, color: Colors.black),
-                          'Do you really want to log out?',
+                          ' Do you really want to log out?',
                           'CANCEL',
                           'CONTINUE', () async {
                         Navigator.pop(context);
