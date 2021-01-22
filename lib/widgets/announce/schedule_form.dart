@@ -86,7 +86,7 @@ class ScheduleFormPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Preview()),
+                        MaterialPageRoute(builder: (context) => PreviewPage()),
                       );
                     },
                     color: Color(0xff0795A8),
