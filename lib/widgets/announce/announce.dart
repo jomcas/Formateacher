@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/important_form.dart';
+import 'package:mi_card/widgets/announce/reminder.dart';
+import 'package:mi_card/widgets/announce/schedule_form.dart';
+import 'package:mi_card/widgets/announce/todo_form.dart';
 
 // Announce Page
 class Announce extends StatelessWidget {
@@ -34,6 +37,7 @@ class Announce extends StatelessWidget {
               shrinkWrap: true,
               crossAxisCount: 2,
               children: <Widget>[
+                // Important
                 InkWell(
                   onTap: () {
                     Navigator.push(
@@ -74,12 +78,13 @@ class Announce extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Schedule
                 InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ImportantForm()));
+                            builder: (context) => ScheduleForm()));
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -114,12 +119,13 @@ class Announce extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Reminder
                 InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ImportantForm()));
+                            builder: (context) => ReminderForm()));
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -154,12 +160,11 @@ class Announce extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Todo
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ImportantForm()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => TodoForm()));
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
