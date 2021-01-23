@@ -209,7 +209,7 @@ class _SignUpState extends State<SignUp> {
 }
 
 //Text Widget
-Widget inputFile({label, obscureText = false, onChanged, validator}) {
+Widget inputFile({label, obscureText = false, onChanged, validator, labelhint}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -226,6 +226,7 @@ Widget inputFile({label, obscureText = false, onChanged, validator}) {
         onChanged: onChanged,
         obscureText: obscureText,
         decoration: InputDecoration(
+          hintText: labelhint,
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey[400]),

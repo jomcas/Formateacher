@@ -19,7 +19,7 @@ class _TodoFormState extends State<TodoForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 3,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -32,6 +32,21 @@ class _TodoFormState extends State<TodoForm> {
             color: Colors.black,
           ),
         ),
+        title: Text('Create Announcement',style: TextStyle(
+            fontSize: 25,
+//            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            letterSpacing: 0)),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: Image(
+                image: AssetImage('images/todolist.png'),
+              height: 10.0,
+              width: 40.0,
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -41,19 +56,19 @@ class _TodoFormState extends State<TodoForm> {
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 0),
           ),
-          Text("Create",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          Text(" Announcement",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          SizedBox(height: 20),
+//          Text("Create",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          Text(" Announcement",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          SizedBox(height: 20),
           Text('Selected Category: ToDo',
               style: TextStyle(
                   fontFamily: 'Inter',

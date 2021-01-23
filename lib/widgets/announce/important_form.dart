@@ -21,7 +21,7 @@ class _ImportantformState extends State<Importantform> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 3,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -34,7 +34,24 @@ class _ImportantformState extends State<Importantform> {
             color: Colors.black,
           ),
         ),
+
+        title: Text('Create Announcement',style: TextStyle(
+            fontSize: 25,
+//            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            letterSpacing: 0)),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Image(
+              image: AssetImage('images/important.png'),
+              height: 10.0,
+              width: 40.0,
+            ),
+          ),
+        ],
       ),
+
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Column(
@@ -43,19 +60,19 @@ class _ImportantformState extends State<Importantform> {
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 0),
           ),
-          Text("Create",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          Text(" Announcement",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          SizedBox(height: 20),
+//          Text("Create",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          Text(" Announcement",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          SizedBox(height: 15),
           Text('Selected Category: Important',
               style: TextStyle(
                   fontFamily: 'Inter',

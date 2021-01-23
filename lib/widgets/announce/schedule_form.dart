@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/preview.dart';
+import 'package:mi_card/widgets/signUp.dart';
 
 class ScheduleForm extends StatefulWidget {
   @override
@@ -9,27 +10,80 @@ class ScheduleForm extends StatefulWidget {
 class _ScheduleFormState extends State<ScheduleForm> {
   List<Widget> _fieldWidgets = List<Widget>();
   int index = 1;
+  String message = '';
+  String messageBox = '';
+  String classCode = '';
+  String classCodeMessage = '';
+  String subjectType = '';
+  String subjectTypeMessage = '';
+  String subjectName = '';
+  String subjectNameMessage = '';
+  String subjectHours = '';
+  String subjectHoursMessage = '';
 
   void addTitle() {
-    _fieldWidgets.add(Field(label: 'Message'));
-    _fieldWidgets.add(Field(label: 'Code'));
+    _fieldWidgets.add(inputFile(
+        label: "Message:",
+        validator: (val) =>
+        val.isEmpty ? 'Please enter message' : null,
+        onChanged: (val) {
+          setState(() {
+            message = val;
+          });
+        }),);
+    _fieldWidgets.add(inputFile(
+        label: "Class Code:",
+        validator: (val) =>
+        val.isEmpty ? 'Please enter class code' : null,
+        onChanged: (val) {
+          setState(() {
+            classCode = val;
+          });
+        }),);
+    addSubject();
   }
 
   void addSubject() {
-    _fieldWidgets.add(Field(label: 'Subject $index Type '));
-    _fieldWidgets.add(Field(label: 'Subject $index Class Hours'));
-    _fieldWidgets.add(Field(label: 'Subject $index Name'));
+    _fieldWidgets.add(inputFile(
+        label: "Subject $index Class Type:",
+        validator: (val) =>
+        val.isEmpty ? 'Please Class Type' : null,
+        onChanged: (val) {
+          setState(() {
+            subjectType = val;
+          });
+        }),);
+    _fieldWidgets.add(inputFile(
+        label: "Subject $index Class Hours:",
+        validator: (val) =>
+        val.isEmpty ? 'Please Class Hours' : null,
+        onChanged: (val) {
+          setState(() {
+            subjectHours = val;
+          });
+        }),);
+    _fieldWidgets.add(inputFile(
+        label: "Subject $index Class Name:",
+        validator: (val) =>
+        val.isEmpty ? 'Please Class Name' : null,
+        onChanged: (val) {
+          setState(() {
+            subjectName = val;
+          });
+        }),);
     index++;
   }
 
   void removeSubject() {
     setState(() {
       try {
-        if (_fieldWidgets.length <= 1) {
+        if (_fieldWidgets.length <= 5) {
           index = 1;
+
         } else {
           _fieldWidgets.length = _fieldWidgets.length - 3;
           index--;
+
         }
       } catch (e) {}
     });
@@ -46,7 +100,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 3,
         brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -59,45 +113,26 @@ class _ScheduleFormState extends State<ScheduleForm> {
             color: Colors.black,
           ),
         ),
+        title: Text('Create Announcement',style: TextStyle(
+            fontSize: 25,
+//            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            letterSpacing: 0)),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Image(
+              image: AssetImage('images/clock.png'),
+              height: 10.0,
+              width: 40.0,
+            ),
+          ),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Container(
-            height: 70.0,
-            width: 160.0,
-            child: FittedBox(
-              child: FloatingActionButton.extended(
-                  heroTag: 'btn1',
-                  elevation: 0.0,
-                  icon: Icon(Icons.add),
-                  label: Text('Add Subject'),
-                  backgroundColor: Colors.green[700],
-                  onPressed: () {
-                    setState(() {
-                      addSubject();
-                    });
-                  }),
-            ),
-          ),
-          SizedBox(
-            height: 0.5,
-          ),
-          Container(
-            height: 70.0,
-            width: 160.0,
-            child: FittedBox(
-              child: FloatingActionButton.extended(
-                  heroTag: 'btn2',
-                  elevation: 0.0,
-                  icon: Icon(Icons.delete),
-                  label: Text('Delete Subject'),
-                  backgroundColor: Colors.red[700],
-                  onPressed: () {
-                    removeSubject();
-                  }),
-            ),
-          )
+
         ],
       ),
       backgroundColor: Colors.white,
@@ -108,19 +143,19 @@ class _ScheduleFormState extends State<ScheduleForm> {
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 0),
           ),
-          Text("Create",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          Text(" Announcement",
-              style: TextStyle(
-                  fontSize: 35,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 2.5)),
-          SizedBox(height: 20),
+//          Text("Create",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          Text(" Announcement",
+//              style: TextStyle(
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.bold,
+//                  color: Colors.black,
+//                  letterSpacing: 2.5)),
+//          SizedBox(height: 20),
           Text('Selected Category: Schedule',
               style: TextStyle(
                   fontFamily: 'Inter',
@@ -154,10 +189,18 @@ class _ScheduleFormState extends State<ScheduleForm> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
+
+                      messageBox = '$message';
+                      classCodeMessage = 'Class Code: $classCode';
+                      subjectNameMessage = 'Subject: $subjectName';
+                      subjectTypeMessage = 'Class Type: $subjectType';
+                      subjectHoursMessage = 'Class Hours: $subjectHours';
+
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Preview()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PreviewPage(str: messageBox, classCode: classCodeMessage, subjectType: subjectTypeMessage, subjectName: subjectNameMessage, subjectHours: subjectHoursMessage,)));
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,
@@ -172,6 +215,51 @@ class _ScheduleFormState extends State<ScheduleForm> {
                         color: Colors.white,
                       ),
                     ),
+                  ),
+                ),
+                SizedBox(
+                  width: 900,
+                  child: Row(
+                    children: [
+                      Container(
+
+                        padding: EdgeInsets.only(left: 35.0),
+//                height: 70.0,
+//                width: 160.0,
+                        child: FittedBox(
+                          child: FloatingActionButton.extended(
+                              heroTag: 'btn1',
+                              elevation: 0.0,
+                              icon: Icon(Icons.add),
+                              label: Text('Add Subject'),
+                              backgroundColor: Colors.green[700],
+                              onPressed: () {
+                                setState(() {
+                                  addSubject();
+                                });
+                              }),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 0.5,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 10.0, right: 5.0),
+                        height: 70.0,
+                        width: 180.0,
+                        child: FittedBox(
+                          child: FloatingActionButton.extended(
+                              heroTag: 'btn2',
+                              elevation: 0.0,
+                              icon: Icon(Icons.delete),
+                              label: Text('Delete Subject'),
+                              backgroundColor: Colors.red[700],
+                              onPressed: () {
+                                removeSubject();
+                              }),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 SizedBox(

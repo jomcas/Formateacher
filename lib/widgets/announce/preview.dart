@@ -13,8 +13,12 @@ class Preview extends StatelessWidget {
 
 class PreviewPage extends StatelessWidget {
   String str = "";
+  String classCode = "";
+  String subjectType = "";
+  String subjectName = "";
+  String subjectHours = "";
 
-  PreviewPage({Key key, String str}) : super(key: key);
+  PreviewPage({Key key, this.str, this.classCode, this.subjectType, this.subjectName, this.subjectHours}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class PreviewPage extends StatelessWidget {
                 Container(
                     child: Scrollbar(
                       child: TextFormField(
-                        initialValue: str,
+                        initialValue: '$str \n\n $classCode \n\n $subjectName \n\n $subjectType \n\n $subjectHours',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
