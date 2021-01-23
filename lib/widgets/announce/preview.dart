@@ -63,7 +63,7 @@ class PreviewPage extends StatelessWidget {
                 Container(
                     child: Scrollbar(
                       child: TextFormField(
-                        initialValue: '$str \n\n $classCode \n\n $subjectName \n\n $subjectType \n\n $subjectHours',
+                        initialValue: '$str \n\n$classCode \n\n$subjectName\n$subjectType\n$subjectHours',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
