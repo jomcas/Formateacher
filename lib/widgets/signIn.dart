@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
-import 'package:mi_card/widgets/shared/alertDialog.dart';
 import 'package:mi_card/widgets/shared/loading.dart';
 import 'package:mi_card/widgets/signUp.dart';
 import 'animation/slideRight.dart';
@@ -86,8 +85,9 @@ class _SignInState extends State<SignIn> {
                               children: <Widget>[
                                 inputFile(
                                     label: "Email:",
-                                    validator: (val) =>
-                                        val.isEmpty ? 'Enter your email address' : null,
+                                    validator: (val) => val.isEmpty
+                                        ? 'Enter your email address'
+                                        : null,
                                     onChanged: (val) {
                                       setState(() => email = val);
                                     }),
@@ -120,10 +120,11 @@ class _SignInState extends State<SignIn> {
                                 if (result == null) {
                                   setState(() {
                                     loading = false;
-                                    showDialog(context: context,
-                                    builder: (BuildContext context){
-                                      return alertdialog();
-                                    });
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Alertdialog();
+                                        });
                                   });
                                 } else {
                                   Navigator.pop(context);
@@ -160,24 +161,6 @@ class _SignInState extends State<SignIn> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700)),
                             )),
-//                        SizedBox(
-//                            width: 360,
-//                            child: FlatButton(
-//                              onPressed: () async {
-//                                dynamic result = await _auth.signInAnon();
-//                                Navigator.pop(context);
-//                                if (result == null) {
-//                                  print('error signing in');
-//                                } else {
-//                                  print('signed in');
-//                                  print(result.uid);
-//                                }
-//                              },
-//                              child: Text('Sign In Anonymously',
-//                                  style: TextStyle(
-//                                      fontSize: 16,
-//                                      fontWeight: FontWeight.w700)),
-//                            ))
                       ],
                     ),
                   ),
@@ -189,13 +172,12 @@ class _SignInState extends State<SignIn> {
 }
 
 //alert dialog for sign in
-class alertdialog extends StatelessWidget {
+class Alertdialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0)
-        ),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
         child: Stack(
           overflow: Overflow.visible,
           alignment: Alignment.topCenter,
@@ -206,16 +188,30 @@ class alertdialog extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 70, 20, 10),
                 child: Column(
                   children: [
-                    Text('Oopss!!!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                    SizedBox(height: 5,),
-                    Text('Wrong Email and/or Password', style: TextStyle(fontSize: 20),),
-                    SizedBox(height: 20,),
+                    Text(
+                      'Oopss!!!',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Wrong Email and/or Password',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     RaisedButton(
                       onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                        Navigator.of(context).pop();
+                      },
                       color: Colors.red[600],
-                      child: Text('Okay', style: TextStyle(color: Colors.white),),
+                      child: Text(
+                        'Okay',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     )
                   ],
                 ),
@@ -230,12 +226,8 @@ class alertdialog extends StatelessWidget {
                   child: Image(
                     image: AssetImage('images/wrongaccess.png'),
                   ),
-                )
-            ),
+                )),
           ],
-        )
-    );
+        ));
   }
 }
-
-

@@ -43,7 +43,7 @@ class Announce extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => importantform()));
+                            builder: (context) => Importantform()));
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(

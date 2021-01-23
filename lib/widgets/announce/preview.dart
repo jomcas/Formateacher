@@ -14,7 +14,7 @@ class Preview extends StatelessWidget {
 class PreviewPage extends StatelessWidget {
   String str = "";
 
-  PreviewPage({Key key, this.str}): super(key: key);
+  PreviewPage({Key key, String str}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,7 @@ class PreviewPage extends StatelessWidget {
                 Container(
                     child: Scrollbar(
                       child: TextFormField(
-                        initialValue:
-                            str,
+                        initialValue: str,
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,

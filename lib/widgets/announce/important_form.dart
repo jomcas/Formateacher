@@ -2,24 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/preview.dart';
 import 'package:mi_card/widgets/signUp.dart';
 
-
-class importantform extends StatefulWidget {
+class Importantform extends StatefulWidget {
   @override
-  _importantformState createState() => _importantformState();
+  _ImportantformState createState() => _ImportantformState();
 }
 
-class _importantformState extends State<importantform> {
-
+class _ImportantformState extends State<Importantform> {
   final _formKey = GlobalKey<FormState>();
   String purpose = '';
   String grade = '';
   String section = '';
   String date = '';
-  String start_time = '';
-  String end_time = '';
-  String ImportantFormat = '';
-
-
+  String startTime = '';
+  String endTime = '';
+  String importantFormat = '';
 
   @override
   Widget build(BuildContext context) {
@@ -42,149 +38,155 @@ class _importantformState extends State<importantform> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.all(4.0),
-                padding: const EdgeInsets.only(top: 0),
-              ),
-              Text("Create",
-                  style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      letterSpacing: 2.5)),
-              Text(" Announcement",
-                  style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      letterSpacing: 2.5)),
-              SizedBox(height: 20),
-              Text('Selected Category: Important',
-                  style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 13,
-                      color: Colors.black,
-                      letterSpacing: 0)),
-              Container(
-                margin: const EdgeInsets.all(4.0),
-                padding: const EdgeInsets.only(top: 10),
-              ),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 400,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: <Widget>[
-                              inputFile(
-                                  label: "Purpose:",
-                                  validator: (val) =>
-                                  val.isEmpty ? 'Please put your purpose' : null,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      purpose = val;
-                                    });
-                                  }),
-                              inputFile(
-                                  label: "Grade:",
-                                  validator: (val) =>
-                                  val.isEmpty ? 'Please put grade of student' : null,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      grade = val;
-                                    });
-                                  }),
-                              inputFile(
-                                  label: "Section:",
-                                  validator: (val) =>
-                                  val.isEmpty ? 'Please put student section' : null,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      section = val;
-                                    });
-                                  }),
-                              inputFile(
-                                  label: "Date:",
-                                  validator: (val) => val.isEmpty
-                                      ? 'Please enter date of event'
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => date = val);
-                                  }),
-                              inputFile(
-                                  label: "Start Time:",
-                                  validator: (val) => val.length < 6
-                                      ? 'Please put start time of event'
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() => start_time = val);
-                                  }),
-                              inputFile(
-                                  label: "End Time:",
-                                  validator: (val) => val.isEmpty
-                                      ? 'Please put end time of event'
-                                      : null,
-                                  onChanged: (val) {
-                                    setState(() {
-                                      end_time = val;
-                                    });
-                                  }),
-                            ],
-                          ),
-                        ),
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.only(top: 0),
+          ),
+          Text("Create",
+              style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: 2.5)),
+          Text(" Announcement",
+              style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  letterSpacing: 2.5)),
+          SizedBox(height: 20),
+          Text('Selected Category: Important',
+              style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 13,
+                  color: Colors.black,
+                  letterSpacing: 0)),
+          Container(
+            margin: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.only(top: 10),
+          ),
+          Container(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  width: 400,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          inputFile(
+                              label: "Purpose:",
+                              validator: (val) => val.isEmpty
+                                  ? 'Please put your purpose'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  purpose = val;
+                                });
+                              }),
+                          inputFile(
+                              label: "Grade:",
+                              validator: (val) => val.isEmpty
+                                  ? 'Please put grade of student'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  grade = val;
+                                });
+                              }),
+                          inputFile(
+                              label: "Section:",
+                              validator: (val) => val.isEmpty
+                                  ? 'Please put student section'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  section = val;
+                                });
+                              }),
+                          inputFile(
+                              label: "Date:",
+                              validator: (val) => val.isEmpty
+                                  ? 'Please enter date of event'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() => date = val);
+                              }),
+                          inputFile(
+                              label: "Start Time:",
+                              validator: (val) => val.length < 6
+                                  ? 'Please put start time of event'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() => startTime = val);
+                              }),
+                          inputFile(
+                              label: "End Time:",
+                              validator: (val) => val.isEmpty
+                                  ? 'Please put end time of event'
+                                  : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  endTime = val;
+                                });
+                              }),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: 335,
-                      child: MaterialButton(
-                        minWidth: double.infinity,
-                        height: 60,
-                        onPressed: () {
-                            ImportantFormat = 'To all grade $grade student section $section. There will be a $purpose on $date at around $start_time to $end_time.';
-                            print(ImportantFormat);
-                            
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => PreviewPage(str: ImportantFormat)));
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  width: 335,
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () {
+                      importantFormat =
+                          'To all grade $grade student section $section. There will be a $purpose on $date at around $startTime to $endTime.';
+                      print(importantFormat);
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PreviewPage(str: importantFormat)));
 //                          Navigator.push(
 //                            context,
 //                            MaterialPageRoute(builder: (context) => Preview()),
 //                          );
-                        },
-                        color: Color(0xff0795A8),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Text(
-                          "Format It!",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
+                    },
+                    color: Color(0xff0795A8),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Text(
+                      "Format It!",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white,
                       ),
                     ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                  ],
+                  ),
                 ),
-              )
-            ],
-          )),
+                SizedBox(
+                  height: 0,
+                ),
+              ],
+            ),
+          )
+        ],
+      )),
     );
   }
 }
-
-
 
 //class ImportantForm extends StatelessWidget {
 //  @override
