@@ -9,69 +9,82 @@ class ScheduleForm extends StatefulWidget {
 
 class _ScheduleFormState extends State<ScheduleForm> {
   List<Widget> _fieldWidgets = List<Widget>();
-  int index = 1;
+
+  int index = 0;
   String message = '';
   String messageBox = '';
   String classCode = '';
   String classCodeMessage = '';
-  String subjectType = '';
+
   String subjectTypeMessage = '';
-  String subjectName = '';
   String subjectNameMessage = '';
-  String subjectHours = '';
   String subjectHoursMessage = '';
 
+  String subjectHours = '';
+  String subjectName = '';
+  String subjectType = '';
+
+  var subjectMessages = List.generate(5, (i) => List(3), growable: true);
+
   void addTitle() {
-    _fieldWidgets.add(inputFile(
-        label: "Message:",
-        validator: (val) =>
-        val.isEmpty ? 'Please enter message' : null,
-        onChanged: (val) {
-          setState(() {
-            message = val;
-          });
-        }),);
-    _fieldWidgets.add(inputFile(
-        label: "Class Code:",
-        validator: (val) =>
-        val.isEmpty ? 'Please enter class code' : null,
-        onChanged: (val) {
-          setState(() {
-            classCode = val;
-          });
-        }),);
+    _fieldWidgets.add(
+      inputFile(
+          label: "Message:",
+          validator: (val) => val.isEmpty ? 'Please enter message' : null,
+          onChanged: (val) {
+            setState(() {
+              message = val;
+            });
+          }),
+    );
+    _fieldWidgets.add(
+      inputFile(
+          label: "Class Code:",
+          validator: (val) => val.isEmpty ? 'Please enter class code' : null,
+          onChanged: (val) {
+            setState(() {
+              classCode = val;
+            });
+          }),
+    );
     addSubject();
   }
 
   void addSubject() {
-    _fieldWidgets.add(inputFile(
-        label: "Subject $index Class Type:",
-        validator: (val) =>
-        val.isEmpty ? 'Please Class Type' : null,
-        onChanged: (val) {
-          setState(() {
-            subjectType = val;
-          });
-        }),);
-    _fieldWidgets.add(inputFile(
-        label: "Subject $index Class Hours:",
-        validator: (val) =>
-        val.isEmpty ? 'Please Class Hours' : null,
-        onChanged: (val) {
-          setState(() {
-            subjectHours = val;
-          });
-        }),);
-    _fieldWidgets.add(inputFile(
-        label: "Subject $index Class Name:",
-        validator: (val) =>
-        val.isEmpty ? 'Please Class Name' : null,
-        onChanged: (val) {
-          setState(() {
-            subjectName = val;
-          });
-        }),);
     index++;
+    print(index);
+
+    // if(empty yung field) gagawa ako ng dialog box tapos walang gagawin
+    _fieldWidgets.add(
+      inputFile(
+          label: "Subject $index Class Type:",
+          validator: (val) => val.isEmpty ? 'Please Class Type' : null,
+          onChanged: (val) {
+            setState(() {
+              subjectMessages[index - 1][1] = val;
+            });
+          }),
+    );
+    _fieldWidgets.add(
+      inputFile(
+          label: "Subject $index Class Hours:",
+          validator: (val) => val.isEmpty ? 'Please Class Hours' : null,
+          onChanged: (val) {
+            setState(() {
+              subjectMessages[index - 1][2] = val;
+            });
+          }),
+    );
+    _fieldWidgets.add(
+      inputFile(
+          label: "Subject $index Class Name:",
+          validator: (val) => val.isEmpty ? 'Please Class Name' : null,
+          onChanged: (val) {
+            setState(() {
+              subjectMessages[index - 1][0] = val;
+            });
+          }),
+    );
   }
 
   void removeSubject() {
@@ -79,21 +92,48 @@ class _ScheduleFormState extends State<ScheduleForm> {
       try {
         if (_fieldWidgets.length <= 5) {
           index = 1;
-
         } else {
           _fieldWidgets.length = _fieldWidgets.length - 3;
           index--;
-
         }
       } catch (e) {}
     });
   }
 
+  String getSubjectMessage(String name, String type, String hours) {
+    String str = 'Subject Name: $name \n' +
+        'Subject Type: $type \n' +
+        'Subject Hours: $hours \n\n';
+    return str;
+  }
+
+  String getPreviewMessage() {
+    String str = '$message \n\nClass Code: $classCode \n\n';
+
+    for (int i = 0; i < index; i++) {
+      str = str +
+          getSubjectMessage(subjectMessages[i][0], subjectMessages[i][1],
+              subjectMessages[i][2]);
+      print('subject add here');
+    }
+    return str;
+  }
+
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     addTitle();
+
+    // var twoDList = List.generate(1, (i) => List(3), growable: true);
+    // twoDList[0][0] = "hello";
+    // twoDList[0][1] = "hello2";
+    // twoDList[0][2] = "hello3";
+    // twoDList.add(['1', '2', '3']);
+    // twoDList.add(['1', '2', '3']);
+
+    // print(twoDList);
   }
 
   @override
@@ -113,11 +153,12 @@ class _ScheduleFormState extends State<ScheduleForm> {
             color: Colors.black,
           ),
         ),
-        title: Text('Create Announcement',style: TextStyle(
-            fontSize: 25,
+        title: Text('Create Announcement',
+            style: TextStyle(
+                fontSize: 25,
 //            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            letterSpacing: 0)),
+                color: Colors.black,
+                letterSpacing: 0)),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -131,9 +172,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-
-        ],
+        children: [],
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -143,19 +182,6 @@ class _ScheduleFormState extends State<ScheduleForm> {
             margin: const EdgeInsets.all(4.0),
             padding: const EdgeInsets.only(top: 0),
           ),
-//          Text("Create",
-//              style: TextStyle(
-//                  fontSize: 35,
-//                  fontWeight: FontWeight.bold,
-//                  color: Colors.black,
-//                  letterSpacing: 2.5)),
-//          Text(" Announcement",
-//              style: TextStyle(
-//                  fontSize: 35,
-//                  fontWeight: FontWeight.bold,
-//                  color: Colors.black,
-//                  letterSpacing: 2.5)),
-//          SizedBox(height: 20),
           Text('Selected Category: Schedule',
               style: TextStyle(
                   fontFamily: 'Inter',
@@ -189,18 +215,22 @@ class _ScheduleFormState extends State<ScheduleForm> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-
                       messageBox = '$message';
                       classCodeMessage = 'Class Code: $classCode';
+
                       subjectNameMessage = 'Subject: $subjectName';
                       subjectTypeMessage = 'Class Type: $subjectType';
                       subjectHoursMessage = 'Class Hours: $subjectHours';
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PreviewPage(str: messageBox, classCode: classCodeMessage, subjectType: subjectTypeMessage, subjectName: subjectNameMessage, subjectHours: subjectHoursMessage,)));
+                      //previewMessage = ' $message \n\n$classCode ';
+
+                      print(getPreviewMessage());
+                      print(subjectMessages);
+
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => PreviewPage(str: message)));
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,
@@ -222,7 +252,6 @@ class _ScheduleFormState extends State<ScheduleForm> {
                   child: Row(
                     children: [
                       Container(
-
                         padding: EdgeInsets.only(left: 35.0),
 //                height: 70.0,
 //                width: 160.0,
