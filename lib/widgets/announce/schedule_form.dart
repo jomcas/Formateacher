@@ -10,6 +10,7 @@ class ScheduleForm extends StatefulWidget {
 class _ScheduleFormState extends State<ScheduleForm> {
   List<Widget> _fieldWidgets = List<Widget>();
   final _formKey = GlobalKey<FormState>();
+  final globalKey = GlobalKey<ScaffoldState>();
   int index = 0;
   String message = '';
   String messageBox = '';
@@ -130,6 +131,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       appBar: AppBar(
         elevation: 3,
         brightness: Brightness.light,
@@ -262,7 +264,24 @@ class _ScheduleFormState extends State<ScheduleForm> {
                                   backgroundColor: Colors.green[700],
                                   onPressed: () {
                                     setState(() {
-                                      addSubject();
+                                      if (index < 5) {
+                                        if (_formKey.currentState.validate()) {
+                                          addSubject();
+                                        } else {
+                                          final snackBar = SnackBar(
+                                              content: Text(
+                                                  'Input previous subject info first before adding a subject!'));
+                                          globalKey.currentState
+                                              .showSnackBar(snackBar);
+                                        }
+                                      } else {
+                                        print('sobra na');
+                                        final snackBar = SnackBar(
+                                            content:
+                                                Text('Maximum of 5 subjects'));
+                                        globalKey.currentState
+                                            .showSnackBar(snackBar);
+                                      }
                                     });
                                   }),
                             ),
