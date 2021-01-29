@@ -9,7 +9,7 @@ class ScheduleForm extends StatefulWidget {
 
 class _ScheduleFormState extends State<ScheduleForm> {
   List<Widget> _fieldWidgets = List<Widget>();
-
+  final _formKey = GlobalKey<FormState>();
   int index = 0;
   String message = '';
   String messageBox = '';
@@ -125,15 +125,6 @@ class _ScheduleFormState extends State<ScheduleForm> {
     // TODO: implement initState
     super.initState();
     addTitle();
-
-    // var twoDList = List.generate(1, (i) => List(3), growable: true);
-    // twoDList[0][0] = "hello";
-    // twoDList[0][1] = "hello2";
-    // twoDList[0][2] = "hello3";
-    // twoDList.add(['1', '2', '3']);
-    // twoDList.add(['1', '2', '3']);
-
-    // print(twoDList);
   }
 
   @override
@@ -176,128 +167,137 @@ class _ScheduleFormState extends State<ScheduleForm> {
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+          child: Container(
+        child: Form(
+          key: _formKey,
           child: Column(
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 0),
-          ),
-          Text('Selected Category: Schedule',
-              style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 13,
-                  color: Colors.black,
-                  letterSpacing: 0)),
-          Container(
-            margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 10),
-          ),
-          Container(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  width: 400,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      children: List.generate(_fieldWidgets.length, (index) {
-                        return _fieldWidgets[index];
-                      }),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  width: 335,
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
-                    onPressed: () {
-                      messageBox = '$message';
-                      classCodeMessage = 'Class Code: $classCode';
-
-                      subjectNameMessage = 'Subject: $subjectName';
-                      subjectTypeMessage = 'Class Type: $subjectType';
-                      subjectHoursMessage = 'Class Hours: $subjectHours';
-
-                      //previewMessage = ' $message \n\n$classCode ';
-
-                      print(getPreviewMessage());
-                      print(subjectMessages);
-
-                      //   Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (context) => PreviewPage(str: message)));
-                    },
-                    color: Color(0xff0795A8),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Text(
-                      "Format It!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.only(top: 0),
+              ),
+              Text('Selected Category: Schedule',
+                  style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 13,
+                      color: Colors.black,
+                      letterSpacing: 0)),
+              Container(
+                margin: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.only(top: 10),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 400,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 40),
+                        child: Column(
+                          children:
+                              List.generate(_fieldWidgets.length, (index) {
+                            return _fieldWidgets[index];
+                          }),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  width: 900,
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 35.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: 335,
+                      child: MaterialButton(
+                        minWidth: double.infinity,
+                        height: 60,
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            messageBox = '$message';
+                            classCodeMessage = 'Class Code: $classCode';
+
+                            subjectNameMessage = 'Subject: $subjectName';
+                            subjectTypeMessage = 'Class Type: $subjectType';
+                            subjectHoursMessage = 'Class Hours: $subjectHours';
+
+                            //previewMessage = ' $message \n\n$classCode ';
+
+                            print(getPreviewMessage());
+                            print(subjectMessages);
+
+                            //   Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) => PreviewPage(str: message)));
+
+                          }
+                        },
+                        color: Color(0xff0795A8),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Text(
+                          "Format It!",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 900,
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(left: 35.0),
 //                height: 70.0,
 //                width: 160.0,
-                        child: FittedBox(
-                          child: FloatingActionButton.extended(
-                              heroTag: 'btn1',
-                              elevation: 0.0,
-                              icon: Icon(Icons.add),
-                              label: Text('Add Subject'),
-                              backgroundColor: Colors.green[700],
-                              onPressed: () {
-                                setState(() {
-                                  addSubject();
-                                });
-                              }),
-                        ),
+                            child: FittedBox(
+                              child: FloatingActionButton.extended(
+                                  heroTag: 'btn1',
+                                  elevation: 0.0,
+                                  icon: Icon(Icons.add),
+                                  label: Text('Add Subject'),
+                                  backgroundColor: Colors.green[700],
+                                  onPressed: () {
+                                    setState(() {
+                                      addSubject();
+                                    });
+                                  }),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 0.5,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 5.0),
+                            height: 70.0,
+                            width: 180.0,
+                            child: FittedBox(
+                              child: FloatingActionButton.extended(
+                                  heroTag: 'btn2',
+                                  elevation: 0.0,
+                                  icon: Icon(Icons.delete),
+                                  label: Text('Delete Subject'),
+                                  backgroundColor: Colors.red[700],
+                                  onPressed: () {
+                                    removeSubject();
+                                  }),
+                            ),
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: 0.5,
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10.0, right: 5.0),
-                        height: 70.0,
-                        width: 180.0,
-                        child: FittedBox(
-                          child: FloatingActionButton.extended(
-                              heroTag: 'btn2',
-                              elevation: 0.0,
-                              icon: Icon(Icons.delete),
-                              label: Text('Delete Subject'),
-                              backgroundColor: Colors.red[700],
-                              onPressed: () {
-                                removeSubject();
-                              }),
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 0,
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 0,
-                ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       )),
     );
   }

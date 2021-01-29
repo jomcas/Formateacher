@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/animation/slideRight.dart';
 import 'package:mi_card/widgets/announce/sendViaSms.dart';
-import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
 import 'package:mi_card/widgets/signUp.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class Preview extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class Preview extends StatelessWidget {
   }
 }
 
-class PreviewPage extends StatelessWidget {
+class PreviewPage extends StatefulWidget {
   String str = "";
   String classCode = "";
   String subjectType = "";
@@ -26,6 +26,18 @@ class PreviewPage extends StatelessWidget {
       this.subjectName,
       this.subjectHours})
       : super(key: key);
+
+  @override
+  _PreviewPageState createState() => _PreviewPageState();
+}
+
+class _PreviewPageState extends State<PreviewPage> {
+  Future<void> share() async {
+    await FlutterShare.share(
+        title: 'Send your message',
+        text: 'Example share text',
+        chooserTitle: 'Send');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +83,7 @@ class PreviewPage extends StatelessWidget {
                     child: Scrollbar(
                       child: TextFormField(
                         initialValue:
-                            '$str \n\n$subjectName\n$subjectType\n$subjectHours',
+                            '${widget.str} \n\n${widget.subjectName}\n${widget.subjectType}\n${widget.subjectHours}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
@@ -117,12 +129,7 @@ class PreviewPage extends StatelessWidget {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        SlideRightRoute(page: BottomNav()),
-                      );
-                    },
+                    onPressed: share,
                     color: Colors.blue[400],
                     elevation: 0,
                     shape: RoundedRectangleBorder(

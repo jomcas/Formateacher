@@ -32,16 +32,17 @@ class _TodoFormState extends State<TodoForm> {
             color: Colors.black,
           ),
         ),
-        title: Text('Create Announcement',style: TextStyle(
-            fontSize: 25,
+        title: Text('Create Announcement',
+            style: TextStyle(
+                fontSize: 25,
 //            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            letterSpacing: 0)),
+                color: Colors.black,
+                letterSpacing: 0)),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Image(
-                image: AssetImage('images/todolist.png'),
+              image: AssetImage('images/todolist.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -139,14 +140,16 @@ class _TodoFormState extends State<TodoForm> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      todoFormat =
-                          "Hi grade $grade $section for your activity for today your task is to $activity and submit it before $time";
+                      if (_formKey.currentState.validate()) {
+                        todoFormat =
+                            "Hi grade $grade $section for your activity for today your task is to $activity and submit it before $time";
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PreviewPage(str: todoFormat)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PreviewPage(str: todoFormat)));
+                      }
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,

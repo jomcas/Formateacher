@@ -33,16 +33,17 @@ class _ReminderFormState extends State<ReminderForm> {
             color: Colors.black,
           ),
         ),
-        title: Text('Create Announcement',style: TextStyle(
-            fontSize: 25,
+        title: Text('Create Announcement',
+            style: TextStyle(
+                fontSize: 25,
 //            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            letterSpacing: 0)),
+                color: Colors.black,
+                letterSpacing: 0)),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-                image: AssetImage('images/reminder.png'),
+              image: AssetImage('images/reminder.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -151,17 +152,19 @@ class _ReminderFormState extends State<ReminderForm> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      reminderFormat =
-                          "Good Day Students I just wanted to remind you about the meeting we have scheduled for $day $date at $time. That will be held using $platform, and we'll be discussing $purpose.";
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PreviewPage(str: reminderFormat)));
+                      if (_formKey.currentState.validate()) {
+                        reminderFormat =
+                            "Good Day Students I just wanted to remind you about the meeting we have scheduled for $day $date at $time. That will be held using $platform, and we'll be discussing $purpose.";
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PreviewPage(str: reminderFormat)));
 //                          Navigator.push(
 //                            context,
 //                            MaterialPageRoute(builder: (context) => PreviewPage()),
 //                          );
+                      }
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,

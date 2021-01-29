@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/important_form.dart';
-import 'package:mi_card/widgets/announce/reminder.dart';
+import 'package:mi_card/widgets/announce/reminder_form.dart';
 import 'package:mi_card/widgets/announce/schedule_form.dart';
 import 'package:mi_card/widgets/announce/todo_form.dart';
 

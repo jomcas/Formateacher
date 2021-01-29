@@ -34,12 +34,12 @@ class _ImportantformState extends State<Importantform> {
             color: Colors.black,
           ),
         ),
-
-        title: Text('Create Announcement',style: TextStyle(
-            fontSize: 25,
+        title: Text('Create Announcement',
+            style: TextStyle(
+                fontSize: 25,
 //            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            letterSpacing: 0)),
+                color: Colors.black,
+                letterSpacing: 0)),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20),
@@ -51,7 +51,6 @@ class _ImportantformState extends State<Importantform> {
           ),
         ],
       ),
-
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Column(
@@ -164,19 +163,17 @@ class _ImportantformState extends State<Importantform> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      importantFormat =
-                          'To all grade $grade student section $section. There will be a $purpose on $date at around $startTime to $endTime.';
-                      print(importantFormat);
+                      if (_formKey.currentState.validate()) {
+                        importantFormat =
+                            'To all grade $grade student section $section. There will be a $purpose on $date at around $startTime to $endTime.';
+                        print(importantFormat);
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PreviewPage(str: importantFormat)));
-//                          Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => Preview()),
-//                          );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PreviewPage(str: importantFormat)));
+                      }
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,
