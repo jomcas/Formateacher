@@ -25,6 +25,8 @@ class _ScheduleFormState extends State<ScheduleForm> {
   String subjectName = '';
   String subjectType = '';
 
+  String valuechoose;
+
   var subjectMessages = List.generate(5, (i) => List(3), growable: true);
 
   void addTitle() {
@@ -60,17 +62,31 @@ class _ScheduleFormState extends State<ScheduleForm> {
 
     // if(empty yung field) gagawa ako ng dialog box tapos walang gagawin
     _fieldWidgets.add(
-      inputFile(
+      dropdown(
           label: "Subject $index Class Type:",
-          validator: (val) => val.isEmpty ? 'Please Class Type' : null,
-          onChanged: (val) {
+          labelhint: Text("Select Class Type"),
+          listitem: ["Asynchronous Class","Synchronous Class"],
+          valueItem: subjectMessages[index - 1][1],
+          onChanged: (newValue){
             setState(() {
-              subjectMessages[index - 1][1] = val;
+              subjectMessages[index - 1][1] = newValue;
             });
-          }),
+          }
+    ),
     );
+//    _fieldWidgets.add(
+//      inputFile(
+//          label: "Subject $index Class Type:",
+//          validator: (val) => val.isEmpty ? 'Please Class Type' : null,
+//          onChanged: (val) {
+//            setState(() {
+//              subjectMessages[index - 1][1] = val;
+//            });
+//          }),
+//    );
     _fieldWidgets.add(
       inputFile(
+          labelhint: "E.g 9am - 10am",
           label: "Subject $index Class Hours:",
           validator: (val) => val.isEmpty ? 'Please Class Hours' : null,
           onChanged: (val) {
@@ -81,6 +97,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
     );
     _fieldWidgets.add(
       inputFile(
+          labelhint: "E.g Math",
           label: "Subject $index Name:",
           validator: (val) => val.isEmpty ? 'Please Class Name' : null,
           onChanged: (val) {
@@ -291,6 +308,9 @@ class _ScheduleFormState extends State<ScheduleForm> {
                           ),
                           SizedBox(
                             height: 0.5,
+                          ),
+                          Container(
+
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 10.0, right: 5.0),

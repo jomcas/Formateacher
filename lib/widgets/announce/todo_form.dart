@@ -15,6 +15,8 @@ class _TodoFormState extends State<TodoForm> {
   String time = '';
   String todoFormat = '';
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +94,7 @@ class _TodoFormState extends State<TodoForm> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
+                              labelhint: "E.g 9",
                               label: "Grade:",
                               validator: (val) =>
                                   val.isEmpty ? 'Please enter grade' : null,
@@ -101,6 +104,7 @@ class _TodoFormState extends State<TodoForm> {
                                 });
                               }),
                           inputFile(
+                              labelhint: "E.g Courage",
                               label: "Section:",
                               validator: (val) =>
                                   val.isEmpty ? 'Please enter section' : null,
@@ -110,6 +114,7 @@ class _TodoFormState extends State<TodoForm> {
                                 });
                               }),
                           inputFile(
+                              labelhint: "E.g Create a diagram",
                               label: "Activity:",
                               validator: (val) =>
                                   val.isEmpty ? 'Please enter activity' : null,
@@ -119,6 +124,7 @@ class _TodoFormState extends State<TodoForm> {
                                 });
                               }),
                           inputFile(
+                              labelhint: "E.g 3pm",
                               label: "Deadline:",
                               validator: (val) => val.isEmpty
                                   ? 'Please enter time for upcoming event'
@@ -126,6 +132,18 @@ class _TodoFormState extends State<TodoForm> {
                               onChanged: (val) {
                                 setState(() => time = val);
                               }),
+
+//                          dropdown(
+//                            label: "Try",
+//                            labelhint: Text("Select Item"),
+//                            listitem: ["Hello","World"],
+//                            valuechoose: valuechoose,
+//                            onChanged: (newValue){
+//                              setState(() {
+//                                valuechoose = newValue;
+//                              });
+//                            }
+//                          ),
                         ],
                       ),
                     ),

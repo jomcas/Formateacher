@@ -17,6 +17,31 @@ class _ImportantformState extends State<Importantform> {
   String endTime = '';
   String importantFormat = '';
 
+  int year = 0;
+  int days = 0;
+  int month = 0;
+
+  DateTime _date = DateTime.now();
+  Future<Null> selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1970),
+      lastDate: DateTime(2100),
+    );
+
+    if(picked != null && picked != _date){
+      setState(() {
+        _date = picked;
+        year = _date.year;
+        month = _date.month;
+        days = _date.day;
+        date = "$year-$month-$days";
+        print(date);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +119,7 @@ class _ImportantformState extends State<Importantform> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
+                              labelhint: "E.g Parent Orientation",
                               label: "Purpose:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put your purpose'
@@ -104,6 +130,7 @@ class _ImportantformState extends State<Importantform> {
                                 });
                               }),
                           inputFile(
+                              labelhint: "E.g 9",
                               label: "Grade:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put grade of student'
@@ -114,6 +141,7 @@ class _ImportantformState extends State<Importantform> {
                                 });
                               }),
                           inputFile(
+                              labelhint: "E.g Courage",
                               label: "Section:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put student section'
@@ -125,13 +153,19 @@ class _ImportantformState extends State<Importantform> {
                               }),
                           inputFile(
                               label: "Date:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter date of event'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() => date = val);
-                              }),
+                              readOnly: true,
+//                            validator: (val) => val.isEmpty
+//                                ? 'Please enter the upcoming date'
+//                                : null,
+                              labelhint: date == '' ? "Select Date..." : date,
+                              onTap: (){
+                                setState(() {
+                                  selectDate(context);
+                                });
+                              }
+                          ),
                           inputFile(
+                              labelhint: "E.g 10am",
                               label: "Start Time:",
                               validator: (val) => val.length < 6
                                   ? 'Please put start time of event'
@@ -140,6 +174,7 @@ class _ImportantformState extends State<Importantform> {
                                 setState(() => startTime = val);
                               }),
                           inputFile(
+                              labelhint: "E.g 11am",
                               label: "End Time:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put end time of event'

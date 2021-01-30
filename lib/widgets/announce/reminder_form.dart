@@ -16,6 +16,33 @@ class _ReminderFormState extends State<ReminderForm> {
   String platform = '';
   String reminderFormat = '';
 
+  int year = 0;
+  int days = 0;
+  int month = 0;
+
+  String valuechoose;
+
+  DateTime _date = DateTime.now();
+  Future<Null> selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1970),
+      lastDate: DateTime(2100),
+    );
+
+    if(picked != null && picked != _date){
+      setState(() {
+        _date = picked;
+        year = _date.year;
+        month = _date.month;
+        days = _date.day;
+        date = "$year-$month-$days";
+        print(date);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +120,7 @@ class _ReminderFormState extends State<ReminderForm> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
+                              labelhint: "E.g English Month",
                               label: "Discussion:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put your purpose'
@@ -103,26 +131,44 @@ class _ReminderFormState extends State<ReminderForm> {
                                 });
                               }),
                           inputFile(
-                              label: "Day:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter the upcoming day'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() {
-                                  day = val;
-                                });
-                              }),
-                          inputFile(
                               label: "Date:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter the upcoming date'
-                                  : null,
-                              onChanged: (val) {
+                              readOnly: true,
+//                            validator: (val) => val.isEmpty
+//                                ? 'Please enter the upcoming date'
+//                                : null,
+                              labelhint: date == '' ? "Select Date..." : date,
+                              onTap: (){
                                 setState(() {
-                                  date = val;
+                                  selectDate(context);
                                 });
-                              }),
+                              }
+                          ),
+                          dropdown(
+                              label: "Day:",
+                              labelhint: Text("Select Item"),
+                              listitem: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                              valuechoose: valuechoose,
+                              onChanged: (newValue){
+                                setState(() {
+                                  valuechoose = newValue;
+                                  day = valuechoose;
+                                });
+                              }
+                          ),
+//                          inputFile(
+//                              labelhint: "E.g Monday",
+//                              label: "Day:",
+//                              validator: (val) => val.isEmpty
+//                                  ? 'Please enter the upcoming day'
+//                                  : null,
+//                              onChanged: (val) {
+//                                setState(() {
+//                                  day = val;
+//                                });
+//                              }),
+
                           inputFile(
+                              labelhint: "E.g 2pm",
                               label: "Time:",
                               validator: (val) => val.isEmpty
                                   ? 'Please enter time for upcoming event'
@@ -131,6 +177,7 @@ class _ReminderFormState extends State<ReminderForm> {
                                 setState(() => time = val);
                               }),
                           inputFile(
+                              labelhint: "E.g Google Meet",
                               label: "Platform:",
                               validator: (val) => val.length < 6
                                   ? 'Please enter plaform that will be used.'

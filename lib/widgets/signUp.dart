@@ -209,7 +209,7 @@ class _SignUpState extends State<SignUp> {
 }
 
 //Text Widget
-Widget inputFile({label, obscureText = false, onChanged, validator, labelhint}) {
+Widget inputFile({label, obscureText = false, onChanged, onTap, validator, labelhint, initialvalue, readOnly = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -222,8 +222,11 @@ Widget inputFile({label, obscureText = false, onChanged, validator, labelhint}) 
         height: 5,
       ),
       TextFormField(
+        initialValue: initialvalue,
+        readOnly: readOnly,
         validator: validator,
         onChanged: onChanged,
+        onTap: onTap,
         obscureText: obscureText,
         decoration: InputDecoration(
           hintText: labelhint,
@@ -241,4 +244,46 @@ Widget inputFile({label, obscureText = false, onChanged, validator, labelhint}) 
       ),
     ],
   );
+}
+
+
+
+Widget dropdown({label, valuechoose, List listitem, onChanged, valueItem, labelhint}){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Text(
+        label,
+        style: TextStyle(
+            fontSize: 15, fontWeight: FontWeight.w600, color: Colors.black87),
+      ),
+      SizedBox(
+        height: 5,
+      ),
+      Container(
+        padding: EdgeInsets.only(left: 10, right: 16),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400], width: 1),
+        ),
+        child: DropdownButton(
+          hint: labelhint,
+          value: valuechoose,
+          onChanged: onChanged,
+          dropdownColor: Colors.grey[200],
+          iconSize: 36,
+          isExpanded: true,
+          items: listitem.map((valueItem){
+            return DropdownMenuItem(
+              value: valueItem,
+              child: Text(valueItem),
+            );
+          }).toList(),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+    ],
+  );
+
 }
