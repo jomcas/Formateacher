@@ -167,7 +167,7 @@ class _ImportantformState extends State<Importantform> {
                           inputFile(
                               labelhint: "E.g 10am",
                               label: "Start Time:",
-                              validator: (val) => val.length < 6
+                              validator: (val) => val.isEmpty
                                   ? 'Please put start time of event'
                                   : null,
                               onChanged: (val) {

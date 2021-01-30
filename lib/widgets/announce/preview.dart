@@ -63,13 +63,13 @@ class _PreviewPageState extends State<PreviewPage> {
         children: <Widget>[
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 0),
           ),
           Column(
             children: <Widget>[
               Text(
-                "Preview",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                'Message Preview',
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20,
@@ -80,8 +80,10 @@ class _PreviewPageState extends State<PreviewPage> {
             child: Column(
               children: <Widget>[
                 Container(
+                  padding: EdgeInsets.all(16.0),
                     child: Scrollbar(
                       child: TextFormField(
+                        style: TextStyle(fontSize: 20.0, fontFamily: 'Raleway'),
                         initialValue:
                             '${widget.str}',
                         readOnly: true,

@@ -64,8 +64,8 @@ class _ScheduleFormState extends State<ScheduleForm> {
     _fieldWidgets.add(
       dropdown(
           label: "Subject $index Class Type:",
-          labelhint: Text("Select Class Type"),
-          listitem: ["Asynchronous Class","Synchronous Class"],
+          labelhint: Text("Select Class Type..."),
+          listitem: ["Asynchronous","Synchronous"],
           valueItem: subjectMessages[index - 1][1],
           onChanged: (newValue){
             setState(() {
@@ -272,7 +272,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
                       child: Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.only(left: 35.0),
+                            padding: EdgeInsets.only(left: 15.0),
 //                height: 70.0,
 //                width: 160.0,
                             child: FittedBox(
