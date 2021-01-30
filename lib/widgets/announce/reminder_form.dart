@@ -35,7 +35,7 @@ class _ReminderFormState extends State<ReminderForm> {
         ),
         title: Text('Create Announcement',
             style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
 //            fontWeight: FontWeight.bold,
                 color: Colors.black,
                 letterSpacing: 0)),
@@ -93,7 +93,7 @@ class _ReminderFormState extends State<ReminderForm> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
-                              label: "Purpose:",
+                              label: "Discussion:",
                               validator: (val) => val.isEmpty
                                   ? 'Please put your purpose'
                                   : null,

@@ -36,7 +36,7 @@ class _ImportantformState extends State<Importantform> {
         ),
         title: Text('Create Announcement',
             style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
 //            fontWeight: FontWeight.bold,
                 color: Colors.black,
                 letterSpacing: 0)),

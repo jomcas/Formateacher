@@ -31,6 +31,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
     _fieldWidgets.add(
       inputFile(
           label: "Message:",
+          labelhint: "E.g Good Morning Students",
           validator: (val) => val.isEmpty ? 'Please enter message' : null,
           onChanged: (val) {
             setState(() {
@@ -38,9 +39,11 @@ class _ScheduleFormState extends State<ScheduleForm> {
             });
           }),
     );
+
     _fieldWidgets.add(
       inputFile(
           label: "Class Code:",
+          labelhint: "E.g a1hr2qy",
           validator: (val) => val.isEmpty ? 'Please enter class code' : null,
           onChanged: (val) {
             setState(() {
@@ -78,7 +81,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
     );
     _fieldWidgets.add(
       inputFile(
-          label: "Subject $index Class Name:",
+          label: "Subject $index Name:",
           validator: (val) => val.isEmpty ? 'Please Class Name' : null,
           onChanged: (val) {
             setState(() {
@@ -148,7 +151,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
         ),
         title: Text('Create Announcement',
             style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
 //            fontWeight: FontWeight.bold,
                 color: Colors.black,
                 letterSpacing: 0)),
@@ -225,10 +228,10 @@ class _ScheduleFormState extends State<ScheduleForm> {
                             print(getPreviewMessage());
                             print(subjectMessages);
 
-                            //   Navigator.push(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) => PreviewPage(str: message)));
+                               Navigator.push(
+                                   context,
+                                   MaterialPageRoute(
+                                       builder: (context) => PreviewPage(str: getPreviewMessage())));
 
                           }
                         },

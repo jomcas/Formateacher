@@ -34,7 +34,7 @@ class _TodoFormState extends State<TodoForm> {
         ),
         title: Text('Create Announcement',
             style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
 //            fontWeight: FontWeight.bold,
                 color: Colors.black,
                 letterSpacing: 0)),

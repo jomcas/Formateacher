@@ -35,7 +35,7 @@ class _PreviewPageState extends State<PreviewPage> {
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Send your message',
-        text: 'Example share text',
+        text: '${widget.str}',
         chooserTitle: 'Send');
   }
 
@@ -83,7 +83,7 @@ class _PreviewPageState extends State<PreviewPage> {
                     child: Scrollbar(
                       child: TextFormField(
                         initialValue:
-                            '${widget.str} \n\n${widget.subjectName}\n${widget.subjectType}\n${widget.subjectHours}',
+                            '${widget.str}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
