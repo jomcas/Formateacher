@@ -1,13 +1,31 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/signUp.dart';
-class AddContact extends StatelessWidget {
+
+
+class AddContact extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return AddContactPage();
-  }
+  _AddContactState createState() => _AddContactState();
 }
 
-class AddContactPage extends StatelessWidget {
+class _AddContactState extends State<AddContact> {
+
+  String name = "";
+  String number = "";
+
+  //Add recipient name and number to database
+  Map data;
+
+  addPhoneNumber() {
+    Map<String, dynamic> RecipientData = {
+      "name": name,
+      "phone": number,
+    };
+    CollectionReference collectionReference =
+    Firestore.instance.collection('RecipientInfo');
+    collectionReference.add(RecipientData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +84,24 @@ class AddContactPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        inputFile(label: "Name:"),
-                        inputFile(label: "Phone Number:")
+                        inputFile(
+                            label: "Name:",
+                            validator: (val) =>
+                            val.isEmpty ? 'Enter Recipient Name' : null,
+                            onChanged: (val) {
+                              setState(() {
+                                name = val;
+                              });
+                            }),
+                        inputFile(
+                            label: "Phone Number:",
+                            validator: (val) =>
+                            val.isEmpty ? 'Enter Phone Number' : null,
+                            onChanged: (val) {
+                              setState(() {
+                                number = val;
+                              });
+                            }),
                       ],
                     ),
                   ),
@@ -78,7 +112,9 @@ class AddContactPage extends StatelessWidget {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: () {},
+                    onPressed: () {
+                      addPhoneNumber();
+                    },
                     color: Colors.blueGrey,
                     elevation: 0,
                     shape: RoundedRectangleBorder(

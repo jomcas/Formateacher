@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/contacts/contactsModel.dart';
 import 'package:mi_card/widgets/contacts/addContact.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Announce Page
-class Contacts extends StatelessWidget {
+
+class Contacts extends StatefulWidget {
+  @override
+  _ContactsState createState() => _ContactsState();
+}
+
+class _ContactsState extends State<Contacts> {
+
+  //Get recipient data in firestore
+  Future getPosts() async {
+    var firestores = Firestore.instance;
+    QuerySnapshot qn = await firestores.collection("RecipientInfo").getDocuments();
+    return qn.documents;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +61,27 @@ class Contacts extends StatelessWidget {
                 ))
               ],
             )),
-        Expanded(child: ContactPage(kContacts))
+                Expanded(child: FutureBuilder(
+                    future: getPosts(),
+                    builder: (_, snapshot){
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return Center(
+                          child: Text("Loading..."),
+                        );
+                      }else{
+                        return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (_, index){
+
+                              return ListTile(
+                                leading: Icon(Icons.contact_phone),
+                                title: (Text(snapshot.data[index].data["name"] ?? "NAME")),
+                                subtitle: (Text(snapshot.data[index].data["phone"] ?? "PHONENUMBER")),
+                              );
+
+                            });
+                      }
+                    })),
       ]))),
       floatingActionButton: Container(
         height: 60.0,
@@ -68,29 +103,29 @@ class Contacts extends StatelessWidget {
   }
 }
 
-class _ContactListItem extends ListTile {
-  _ContactListItem(Contact contact)
-      : super(
-            onTap: () {},
-            title: new Text(contact.fullName),
-            subtitle: new Text(contact.contactNumber),
-            leading: new CircleAvatar(child: new Text(contact.fullName[0])));
-}
-
-class ContactPage extends StatelessWidget {
-  final List<Contact> _contacts;
-
-  ContactPage(this._contacts);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scrollbar(
-        child: ListView.builder(
-      padding: new EdgeInsets.symmetric(vertical: 8.0),
-      itemBuilder: (context, index) {
-        return new _ContactListItem(_contacts[index]);
-      },
-      itemCount: _contacts.length,
-    ));
-  }
-}
+//class _ContactListItem extends ListTile {
+//  _ContactListItem(Contact contact)
+//      : super(
+//            onTap: () {},
+//            title: new Text(contact.fullName),
+//            subtitle: new Text(contact.contactNumber),
+//            leading: new CircleAvatar(child: new Text(contact.fullName[0])));
+//}
+//
+//class ContactPage extends StatelessWidget {
+//  final List<Contact> _contacts;
+//
+//  ContactPage(this._contacts);
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scrollbar(
+//        child: ListView.builder(
+//      padding: new EdgeInsets.symmetric(vertical: 8.0),
+//      itemBuilder: (context, index) {
+//        return new _ContactListItem(_contacts[index]);
+//      },
+//      itemCount: _contacts.length,
+//    ));
+//  }
+//}
