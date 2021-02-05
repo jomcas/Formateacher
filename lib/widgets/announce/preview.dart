@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:mi_card/widgets/animation/slideRight.dart';
 import 'package:mi_card/widgets/announce/sendViaSms.dart';
 import 'package:mi_card/widgets/signUp.dart';
@@ -30,6 +31,9 @@ class PreviewPage extends StatefulWidget {
   @override
   _PreviewPageState createState() => _PreviewPageState();
 }
+
+// List of numbers to send to one or many numbers.
+List<String> recipeients = ["09278880720","09554361983","09759930453"];
 
 class _PreviewPageState extends State<PreviewPage> {
   Future<void> share() async {
@@ -154,10 +158,11 @@ class _PreviewPageState extends State<PreviewPage> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        SlideRightRoute(page: SendViaSms()),
-                      );
+                      _sendSMS('${widget.str}', recipeients);
+//                      Navigator.push(
+//                        context,
+//                        SlideRightRoute(page: SendViaSms()),
+//                      ),
                     },
                     color: Color(0xff0795A8),
                     elevation: 0,
@@ -184,4 +189,11 @@ class _PreviewPageState extends State<PreviewPage> {
       )),
     );
   }
+}
+
+void _sendSMS(String message, List<String> recipients) async {
+  String _result = await sendSMS(message: message, recipients: recipients).catchError((onError){
+    print(onError);
+  });
+  print(_result);
 }

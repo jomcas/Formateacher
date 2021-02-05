@@ -198,10 +198,10 @@ class Alertdialog extends StatelessWidget {
                     ),
                     Text(
                       'Wrong Email and/or Password',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 15),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 5,
                     ),
                     RaisedButton(
                       onPressed: () {

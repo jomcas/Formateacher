@@ -61,7 +61,7 @@ class Announce extends StatelessWidget {
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(bottom: 100),
-                          height: 100,
+                          height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/important.png"),
@@ -102,7 +102,7 @@ class Announce extends StatelessWidget {
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(bottom: 100),
-                          height: 100,
+                          height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/clock.png"),
@@ -143,7 +143,7 @@ class Announce extends StatelessWidget {
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(bottom: 100),
-                          height: 100,
+                          height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/reminder.png"),
@@ -182,7 +182,7 @@ class Announce extends StatelessWidget {
                         SizedBox(height: 20),
                         Container(
                           padding: EdgeInsets.only(bottom: 100),
-                          height: 100,
+                          height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: AssetImage("images/todolist.png"),
