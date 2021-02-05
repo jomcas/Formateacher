@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:mi_card/widgets/animation/slideRight.dart';
@@ -41,6 +42,18 @@ class _PreviewPageState extends State<PreviewPage> {
         title: 'Send your message',
         text: '${widget.str}',
         chooserTitle: 'Send');
+  }
+
+  //Save templates to database
+  Map data;
+
+  addTemplate() {
+    Map<String, dynamic> TemplateData = {
+      "Template": '${widget.str}',
+    };
+    CollectionReference collectionReference =
+    Firestore.instance.collection('TemplateInfo');
+    collectionReference.add(TemplateData);
   }
 
   @override
@@ -118,10 +131,11 @@ class _PreviewPageState extends State<PreviewPage> {
                     width: 360,
                     child: FlatButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            SlideRightRoute(page: SignUp()),
-                          );
+                          addTemplate();
+//                          Navigator.push(
+//                            context,
+//                            SlideRightRoute(page: SignUp()),
+//                          );
                         },
                         child: Align(
                           alignment: Alignment.centerRight,
