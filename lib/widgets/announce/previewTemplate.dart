@@ -9,53 +9,31 @@ import 'package:flutter_share/flutter_share.dart';
 class Preview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PreviewPage();
+    return PreviewTemplate();
   }
 }
 
-class PreviewPage extends StatefulWidget {
-  String str = "hg";
-  String classCode = "";
-  String subjectType = "";
-  String subjectName = "";
-  String subjectHours = "";
+class PreviewTemplate extends StatefulWidget {
+  final DocumentSnapshot Template;
 
-
-  PreviewPage(
+  PreviewTemplate(
       {Key key,
-      this.str,
-      this.classCode,
-      this.subjectType,
-      this.subjectName,
-      this.subjectHours})
+        this.Template})
       : super(key: key);
 
   @override
-  _PreviewPageState createState() => _PreviewPageState();
+  _PreviewTemplateState createState() => _PreviewTemplateState();
 }
 
-// List of numbers to send to one or many numbers.
-//List<String> recipeients = ["09278880720","09554361983","09759930453"];
 
-class _PreviewPageState extends State<PreviewPage> {
+class _PreviewTemplateState extends State<PreviewTemplate> {
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Send your message',
-        text: '${widget.str}',
+        text: '${widget.Template.data["Template"]}',
         chooserTitle: 'Send');
   }
 
-  //Save templates to database
-  Map data;
-
-  addTemplate() {
-    Map<String, dynamic> TemplateData = {
-      "Template": '${widget.str}',
-    };
-    CollectionReference collectionReference =
-    Firestore.instance.collection('TemplateInfo');
-    collectionReference.add(TemplateData);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +81,7 @@ class _PreviewPageState extends State<PreviewPage> {
                       child: TextFormField(
                         style: TextStyle(fontSize: 20.0, fontFamily: 'Raleway'),
                         initialValue:
-                        '${widget.str}',
+                        '${widget.Template.data["Template"]}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
@@ -128,23 +106,23 @@ class _PreviewPageState extends State<PreviewPage> {
                         )
                       ],
                     )),
-                SizedBox(
-                    width: 360,
-                    child: FlatButton(
-                        onPressed: () {
-                          addTemplate();
-//                          Navigator.push(
-//                            context,
-//                            SlideRightRoute(page: SignUp()),
-//                          );
-                        },
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Text('Save to Templates..',
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700)),
-                        ))),
+//                SizedBox(
+//                    width: 360,
+//                    child: FlatButton(
+//                        onPressed: () {
+//                          addTemplate();
+////                          Navigator.push(
+////                            context,
+////                            SlideRightRoute(page: SignUp()),
+////                          );
+//                        },
+//                        child: Align(
+//                          alignment: Alignment.centerRight,
+//                          child: Text('Save to Templates..',
+//                              textAlign: TextAlign.end,
+//                              style: TextStyle(
+//                                  fontSize: 16, fontWeight: FontWeight.w700)),
+//                        ))),
                 SizedBox(
                   width: 335,
                   child: MaterialButton(
@@ -176,7 +154,7 @@ class _PreviewPageState extends State<PreviewPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SendViaSms(message: widget.str)));
+                              builder: (context) => SendViaSms(message: '${widget.Template.data["Template"]}')));
 //                      _sendSMS('${widget.str}', recipeients);
 //                      Navigator.push(
 //                        context,

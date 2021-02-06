@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mi_card/widgets/announce/preview.dart';
+import 'package:mi_card/widgets/announce/previewTemplate.dart';
 import 'package:mi_card/widgets/templates/templatesModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,6 +26,15 @@ class _ListPageState extends State<ListPage> {
     var firestore = Firestore.instance;
     QuerySnapshot qn = await firestore.collection("TemplateInfo").getDocuments();
     return qn.documents;
+  }
+
+  navigateToDetail(DocumentSnapshot post){
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PreviewTemplate(Template: post)));
+
   }
 
   @override
@@ -81,6 +92,9 @@ class _ListPageState extends State<ListPage> {
                             return ListTile(
                               leading: Icon(Icons.announcement),
                               title: (Text(snapshot.data[index].data["Template"] ?? "TEMPLATE")),
+                              onTap: (){
+                                 navigateToDetail(snapshot.data[index]);
+                              },
                             );
 
                       });
