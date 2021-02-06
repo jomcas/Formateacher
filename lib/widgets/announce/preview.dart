@@ -34,7 +34,7 @@ class PreviewPage extends StatefulWidget {
 }
 
 // List of numbers to send to one or many numbers.
-List<String> recipeients = ["09278880720","09554361983","09759930453"];
+//List<String> recipeients = ["09278880720","09554361983","09759930453"];
 
 class _PreviewPageState extends State<PreviewPage> {
   Future<void> share() async {
@@ -172,7 +172,11 @@ class _PreviewPageState extends State<PreviewPage> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      _sendSMS('${widget.str}', recipeients);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SendViaSms(message: widget.str)));
+//                      _sendSMS('${widget.str}', recipeients);
 //                      Navigator.push(
 //                        context,
 //                        SlideRightRoute(page: SendViaSms()),
@@ -205,9 +209,9 @@ class _PreviewPageState extends State<PreviewPage> {
   }
 }
 
-void _sendSMS(String message, List<String> recipients) async {
-  String _result = await sendSMS(message: message, recipients: recipients).catchError((onError){
-    print(onError);
-  });
-  print(_result);
-}
+//void _sendSMS(String message, List<String> recipients) async {
+//  String _result = await sendSMS(message: message, recipients: recipients).catchError((onError){
+//    print(onError);
+//  });
+//  print(_result);
+//}
