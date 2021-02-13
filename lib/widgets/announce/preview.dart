@@ -148,28 +148,6 @@ class _PreviewPageState extends State<PreviewPage> {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: share,
-                    color: Colors.blue[400],
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: Text(
-                      "Send via Messenger",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Divider(),
-                SizedBox(
-                  width: 335,
-                  child: MaterialButton(
-                    minWidth: double.infinity,
-                    height: 60,
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -197,6 +175,32 @@ class _PreviewPageState extends State<PreviewPage> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 25,
+                ),
+                SizedBox(
+                  width: 335,
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: share,
+                    color: Colors.blue[400],
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Text(
+                      "Send via",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                Divider(),
+
                 SizedBox(
                   height: 25,
                 ),

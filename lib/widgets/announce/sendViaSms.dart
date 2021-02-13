@@ -109,10 +109,10 @@ class _SendViaSmsState extends State<SendViaSms> {
               backgroundColor: Colors.green[700],
               onPressed: () {
                 _sendSMS('${widget.message}', recipients);
-//                Navigator.push(
-//                  context,
-//                  MaterialPageRoute(builder: (context) => Done()),
-//                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Done()),
+                );
               }),
         ),
       ),
