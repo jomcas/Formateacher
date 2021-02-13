@@ -20,7 +20,6 @@ class PreviewPage extends StatefulWidget {
   String subjectName = "";
   String subjectHours = "";
 
-
   PreviewPage(
       {Key key,
       this.str,
@@ -49,12 +48,12 @@ class _PreviewPageState extends State<PreviewPage> {
   Map data;
 
   addTemplate() {
-    Map<String, dynamic> TemplateData = {
+    Map<String, dynamic> templateData = {
       "Template": '${widget.str}',
     };
     CollectionReference collectionReference =
-    Firestore.instance.collection('TemplateInfo');
-    collectionReference.add(TemplateData);
+        Firestore.instance.collection('TemplateInfo');
+    collectionReference.add(templateData);
   }
 
   @override
@@ -98,12 +97,11 @@ class _PreviewPageState extends State<PreviewPage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Scrollbar(
                       child: TextFormField(
                         style: TextStyle(fontSize: 20.0, fontFamily: 'Raleway'),
-                        initialValue:
-                        '${widget.str}',
+                        initialValue: '${widget.str}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
@@ -176,7 +174,8 @@ class _PreviewPageState extends State<PreviewPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SendViaSms(message: widget.str)));
+                              builder: (context) =>
+                                  SendViaSms(message: widget.str)));
 //                      _sendSMS('${widget.str}', recipeients);
 //                      Navigator.push(
 //                        context,

@@ -11,11 +11,11 @@ class Contacts extends StatefulWidget {
 }
 
 class _ContactsState extends State<Contacts> {
-
   //Get recipient data in firestore
   Future getPosts() async {
     var firestores = Firestore.instance;
-    QuerySnapshot qn = await firestores.collection("RecipientInfo").getDocuments();
+    QuerySnapshot qn =
+        await firestores.collection("RecipientInfo").getDocuments();
     return qn.documents;
   }
 
@@ -41,7 +41,6 @@ class _ContactsState extends State<Contacts> {
           margin: const EdgeInsets.all(4.0),
           padding: const EdgeInsets.only(top: 5),
         ),
-
         Text('Phonebook',
             style: TextStyle(
                 fontSize: 35,
@@ -61,27 +60,29 @@ class _ContactsState extends State<Contacts> {
                 ))
               ],
             )),
-                Expanded(child: FutureBuilder(
-                    future: getPosts(),
-                    builder: (_, snapshot){
-                      if(snapshot.connectionState == ConnectionState.waiting){
-                        return Center(
-                          child: Text("Loading..."),
-                        );
-                      }else{
-                        return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (_, index){
-
-                              return ListTile(
-                                leading: Icon(Icons.contact_phone),
-                                title: (Text(snapshot.data[index].data["name"] ?? "NAME")),
-                                subtitle: (Text(snapshot.data[index].data["phone"] ?? "PHONENUMBER")),
-                              );
-
-                            });
-                      }
-                    })),
+        Expanded(
+            child: FutureBuilder(
+                future: getPosts(),
+                builder: (_, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: Text("Loading..."),
+                    );
+                  } else {
+                    return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (_, index) {
+                          return Recipient(
+                            name: (Text(
+                                    snapshot.data[index].data["name"] ?? "NAME")
+                                .data),
+                            phone: (Text(snapshot.data[index].data["phone"] ??
+                                    "PHONENUMBER")
+                                .data),
+                          );
+                        });
+                  }
+                })),
       ]))),
       floatingActionButton: Container(
         height: 60.0,
@@ -103,29 +104,32 @@ class _ContactsState extends State<Contacts> {
   }
 }
 
-//class _ContactListItem extends ListTile {
-//  _ContactListItem(Contact contact)
-//      : super(
-//            onTap: () {},
-//            title: new Text(contact.fullName),
-//            subtitle: new Text(contact.contactNumber),
-//            leading: new CircleAvatar(child: new Text(contact.fullName[0])));
-//}
-//
-//class ContactPage extends StatelessWidget {
-//  final List<Contact> _contacts;
-//
-//  ContactPage(this._contacts);
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scrollbar(
-//        child: ListView.builder(
-//      padding: new EdgeInsets.symmetric(vertical: 8.0),
-//      itemBuilder: (context, index) {
-//        return new _ContactListItem(_contacts[index]);
-//      },
-//      itemCount: _contacts.length,
-//    ));
-//  }
-//}
+class Recipient extends StatefulWidget {
+  final String name;
+  final String phone;
+
+  Recipient({this.name, this.phone});
+
+  @override
+  _RecipientState createState() => _RecipientState();
+}
+
+class _RecipientState extends State<Recipient> {
+  bool selected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      secondary: Icon(Icons.contact_phone),
+      title: (Text(widget.name)),
+      subtitle: (Text(widget.phone)),
+      onChanged: (bool value) {
+        setState(() {
+          selected = value;
+          print(selected);
+        });
+      },
+      value: selected,
+    );
+  }
+}
