@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 showAlertDialogOneButton(
-    BuildContext context, String title, String message, String buttonText) {
+    BuildContext context, Icon title, String message, String buttonText) {
   // set up the button
   Widget okButton = FlatButton(
     child: Text(buttonText),
@@ -12,7 +12,7 @@ showAlertDialogOneButton(
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(title),
+    title: title,
     content: Text(message),
     actions: [
       okButton,

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mi_card/widgets/animation/slideRight.dart';
+import 'package:mi_card/widgets/bottomNav/bottomNav.dart';
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 import 'package:mi_card/widgets/signUp.dart';
-
 
 class AddContact extends StatefulWidget {
   @override
@@ -9,21 +12,27 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContactState extends State<AddContact> {
-
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
   String name = "";
   String number = "";
 
   //Add recipient name and number to database
   Map data;
 
-  addPhoneNumber() {
-    Map<String, dynamic> RecipientData = {
+  addPhoneNumber() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+
+    Map<String, dynamic> recipientData = {
+      "userID": uid,
       "name": name,
       "phone": number,
     };
+
     CollectionReference collectionReference =
-    Firestore.instance.collection('RecipientInfo');
-    collectionReference.add(RecipientData);
+        Firestore.instance.collection('RecipientInfo');
+    collectionReference.add(recipientData);
   }
 
   @override
@@ -35,7 +44,10 @@ class _AddContactState extends State<AddContact> {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              SlideRightRoute(page: BottomNav()),
+            );
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -82,27 +94,30 @@ class _AddContactState extends State<AddContact> {
                   width: 400,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40),
-                    child: Column(
-                      children: <Widget>[
-                        inputFile(
-                            label: "Name:",
-                            validator: (val) =>
-                            val.isEmpty ? 'Enter Recipient Name' : null,
-                            onChanged: (val) {
-                              setState(() {
-                                name = val;
-                              });
-                            }),
-                        inputFile(
-                            label: "Phone Number:",
-                            validator: (val) =>
-                            val.isEmpty ? 'Enter Phone Number' : null,
-                            onChanged: (val) {
-                              setState(() {
-                                number = val;
-                              });
-                            }),
-                      ],
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          inputFile(
+                              label: "Name:",
+                              validator: (val) =>
+                                  val.isEmpty ? 'Enter Recipient Name' : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  name = val;
+                                });
+                              }),
+                          inputFile(
+                              label: "Phone Number:",
+                              validator: (val) =>
+                                  val.isEmpty ? 'Enter Phone Number' : null,
+                              onChanged: (val) {
+                                setState(() {
+                                  number = val;
+                                });
+                              }),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -113,7 +128,13 @@ class _AddContactState extends State<AddContact> {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () {
-                      addPhoneNumber();
+                      if (_formKey.currentState.validate()) {
+                        addPhoneNumber();
+                        showAlertDialogOneButton(context, Icon(Icons.info),
+                            "Added Contact Successfully!", "Ok");
+                      }
+
+                      setState(() {});
                     },
                     color: Colors.blueGrey,
                     elevation: 0,
@@ -128,9 +149,10 @@ class _AddContactState extends State<AddContact> {
                         color: Colors.white,
                       ),
                     ),
-                  ),),
+                  ),
+                ),
                 SizedBox(
-                    width: 360,
+                  width: 360,
 //                    child: FlatButton(
 //                      onPressed: () {},
 //                      child: Text('Select From Contacts',

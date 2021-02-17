@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
-import 'package:mi_card/widgets/announce/done.dart';
 
 // Announce Page
 
@@ -109,10 +108,10 @@ class _SendViaSmsState extends State<SendViaSms> {
               backgroundColor: Colors.green[700],
               onPressed: () {
                 _sendSMS('${widget.message}', recipients);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Done()),
-                );
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => Done()),
+//                );
               }),
         ),
       ),

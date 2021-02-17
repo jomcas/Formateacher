@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mi_card/widgets/contacts/contactsModel.dart';
 import 'package:mi_card/widgets/contacts/addContact.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 
 // Announce Page
 
@@ -17,6 +17,12 @@ class _ContactsState extends State<Contacts> {
     QuerySnapshot qn =
         await firestores.collection("RecipientInfo").getDocuments();
     return qn.documents;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
   }
 
   @override
@@ -73,13 +79,23 @@ class _ContactsState extends State<Contacts> {
                         itemCount: snapshot.data.length,
                         itemBuilder: (_, index) {
                           return Recipient(
-                            name: (Text(
-                                    snapshot.data[index].data["name"] ?? "NAME")
-                                .data),
-                            phone: (Text(snapshot.data[index].data["phone"] ??
-                                    "PHONENUMBER")
-                                .data),
-                          );
+                              name: (Text(snapshot.data[index].data["name"] ??
+                                      "NAME")
+                                  .data),
+                              phone: (Text(snapshot.data[index].data["phone"] ??
+                                      "PHONENUMBER")
+                                  .data),
+                              delete: () async {
+                                // Deleting a file
+                                await Firestore.instance.runTransaction(
+                                    (Transaction myTransaction) async {
+                                  await myTransaction
+                                      .delete(snapshot.data[index].reference);
+                                });
+                                Navigator.pop(context);
+
+                                setState(() {});
+                              });
                         });
                   }
                 })),
@@ -107,8 +123,9 @@ class _ContactsState extends State<Contacts> {
 class Recipient extends StatefulWidget {
   final String name;
   final String phone;
+  final dynamic delete;
 
-  Recipient({this.name, this.phone});
+  Recipient({this.name, this.phone, this.delete});
 
   @override
   _RecipientState createState() => _RecipientState();
@@ -119,17 +136,23 @@ class _RecipientState extends State<Recipient> {
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
-      secondary: Icon(Icons.contact_phone),
+    return ListTile(
+      leading: Icon(Icons.contact_phone),
       title: (Text(widget.name)),
       subtitle: (Text(widget.phone)),
-      onChanged: (bool value) {
-        setState(() {
-          selected = value;
-          print(selected);
-        });
-      },
-      value: selected,
+      trailing: IconButton(
+        icon: Icon(Icons.delete),
+        onPressed: () {
+          // nagdedelete
+          showAlertDialogTwoButtons(
+              context,
+              Icon(Icons.delete_forever, size: 50, color: Colors.black),
+              ' Do you want to delete this contact?',
+              'CANCEL',
+              'DELETE',
+              widget.delete);
+        },
+      ),
     );
   }
 }

@@ -5,6 +5,10 @@ import 'package:mi_card/widgets/contacts/contacts.dart';
 import 'package:mi_card/widgets/profile/profile.dart';
 
 class BottomNav extends StatefulWidget {
+  final int index;
+
+  BottomNav({this.index});
+
   @override
   State<StatefulWidget> createState() {
     return _BottomNavState();
@@ -23,9 +27,6 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text('Formateacher'),
-//      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
@@ -34,7 +35,6 @@ class _BottomNavState extends State<BottomNav> {
         selectedItemColor: Color(0xff0795A8),
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
-
         items: [
           BottomNavigationBarItem(
               icon: new Icon(Icons.record_voice_over), label: 'Announce'),

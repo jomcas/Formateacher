@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/services/auth.dart';
 import 'package:mi_card/widgets/shared/alertDialog.dart';
@@ -14,7 +15,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final AuthService _auth = AuthService();
-
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   String error = '';
@@ -27,7 +28,10 @@ class _SignUpState extends State<SignUp> {
   //Add data to database firestore
   Map data;
 
-  addData() {
+  addData() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+
     Map<String, dynamic> demoData = {
       "Lname": lname,
       "Fname": fname,
@@ -35,9 +39,9 @@ class _SignUpState extends State<SignUp> {
       "Password": password,
       "Phone": phone,
     };
-    CollectionReference collectionReference =
-        Firestore.instance.collection('UserInfo');
-    collectionReference.add(demoData);
+    //CollectionReference collectionReference =
+    Firestore.instance.collection('UserInfo').document(uid).setData(demoData);
+    //collectionReference.add(demoData);
   }
 
   @override
@@ -149,7 +153,6 @@ class _SignUpState extends State<SignUp> {
                           height: 60,
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              addData();
                               setState(() => loading = true);
                               dynamic result =
                                   await _auth.registerWithEmailAndPassword(
@@ -160,11 +163,17 @@ class _SignUpState extends State<SignUp> {
                                       'Could not sign up with those credentials';
                                   loading = false;
                                   showAlertDialogOneButton(
-                                      context, 'Register Error', error, 'OK');
+                                      context, Icon(Icons.error), error, 'OK');
                                 });
                               } else {
+                                showAlertDialogOneButton(
+                                    context,
+                                    Icon(Icons.info),
+                                    "Registered Successfully!",
+                                    'OK');
                                 Navigator.pop(context);
                                 loading = false;
+                                addData();
                               }
                             }
                           },
@@ -209,7 +218,15 @@ class _SignUpState extends State<SignUp> {
 }
 
 //Text Widget
-Widget inputFile({label, obscureText = false, onChanged, onTap, validator, labelhint, initialvalue, readOnly = false}) {
+Widget inputFile(
+    {label,
+    obscureText = false,
+    onChanged,
+    onTap,
+    validator,
+    labelhint,
+    initialvalue,
+    readOnly = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -246,9 +263,8 @@ Widget inputFile({label, obscureText = false, onChanged, onTap, validator, label
   );
 }
 
-
-
-Widget dropdown({label, valuechoose, List listitem, onChanged, valueItem, labelhint}){
+Widget dropdown(
+    {label, valuechoose, List listitem, onChanged, valueItem, labelhint}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -272,7 +288,7 @@ Widget dropdown({label, valuechoose, List listitem, onChanged, valueItem, labelh
           dropdownColor: Colors.grey[200],
           iconSize: 36,
           isExpanded: true,
-          items: listitem.map((valueItem){
+          items: listitem.map((valueItem) {
             return DropdownMenuItem(
               value: valueItem,
               child: Text(valueItem),
@@ -285,5 +301,4 @@ Widget dropdown({label, valuechoose, List listitem, onChanged, valueItem, labelh
       ),
     ],
   );
-
 }
