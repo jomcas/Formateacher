@@ -33,13 +33,16 @@ class _SignUpState extends State<SignUp> {
     final uid = user.uid;
 
     Map<String, dynamic> demoData = {
+      "UID": uid,
       "Lname": lname,
       "Fname": fname,
       "Email": email,
       "Password": password,
       "Phone": phone,
     };
+
     //CollectionReference collectionReference =
+    print(uid);
     Firestore.instance.collection('UserInfo').document(uid).setData(demoData);
     //collectionReference.add(demoData);
   }
@@ -166,14 +169,14 @@ class _SignUpState extends State<SignUp> {
                                       context, Icon(Icons.error), error, 'OK');
                                 });
                               } else {
-                                showAlertDialogOneButton(
-                                    context,
-                                    Icon(Icons.info),
-                                    "Registered Successfully!",
-                                    'OK');
+                                addData();
+                                // showAlertDialogOneButton(
+                                //     context,
+                                //     Icon(Icons.info),
+                                //     "Registered Successfully!",
+                                //     'OK');
                                 Navigator.pop(context);
                                 loading = false;
-                                addData();
                               }
                             }
                           },
@@ -226,7 +229,8 @@ Widget inputFile(
     validator,
     labelhint,
     initialvalue,
-    readOnly = false}) {
+    readOnly = false,
+    controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -239,6 +243,7 @@ Widget inputFile(
         height: 5,
       ),
       TextFormField(
+        controller: controller,
         initialValue: initialvalue,
         readOnly: readOnly,
         validator: validator,

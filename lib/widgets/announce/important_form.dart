@@ -30,7 +30,7 @@ class _ImportantformState extends State<Importantform> {
       lastDate: DateTime(2100),
     );
 
-    if(picked != null && picked != _date){
+    if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
         year = _date.year;
@@ -69,7 +69,7 @@ class _ImportantformState extends State<Importantform> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-              image: AssetImage('images/important.png'),
+              image: AssetImage('images/Important.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -158,12 +158,11 @@ class _ImportantformState extends State<Importantform> {
 //                                ? 'Please enter the upcoming date'
 //                                : null,
                               labelhint: date == '' ? "Select Date..." : date,
-                              onTap: (){
+                              onTap: () {
                                 setState(() {
                                   selectDate(context);
                                 });
-                              }
-                          ),
+                              }),
                           inputFile(
                               labelhint: "E.g 10am",
                               label: "Start Time:",
@@ -206,8 +205,10 @@ class _ImportantformState extends State<Importantform> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    PreviewPage(str: importantFormat)));
+                                builder: (context) => PreviewPage(
+                                      str: importantFormat,
+                                      category: "Important",
+                                    )));
                       }
                     },
                     color: Color(0xff0795A8),

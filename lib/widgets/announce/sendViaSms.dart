@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 
@@ -17,11 +18,17 @@ class SendViaSms extends StatefulWidget {
 }
 
 class _SendViaSmsState extends State<SendViaSms> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   //Get recipient data in firestore
   Future getPosts() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
     var firestores = Firestore.instance;
-    QuerySnapshot qn =
-        await firestores.collection("RecipientInfo").getDocuments();
+    QuerySnapshot qn = await firestores
+        .collection("RecipientInfo")
+        .where('UID', isEqualTo: uid)
+        .orderBy("phone", descending: false)
+        .getDocuments();
     return qn.documents;
   }
 

@@ -31,7 +31,7 @@ class _ReminderFormState extends State<ReminderForm> {
       lastDate: DateTime(2100),
     );
 
-    if(picked != null && picked != _date){
+    if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
         year = _date.year;
@@ -70,7 +70,7 @@ class _ReminderFormState extends State<ReminderForm> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-              image: AssetImage('images/reminder.png'),
+              image: AssetImage('images/Reminder.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -137,24 +137,30 @@ class _ReminderFormState extends State<ReminderForm> {
 //                                ? 'Please enter the upcoming date'
 //                                : null,
                               labelhint: date == '' ? "Select Date..." : date,
-                              onTap: (){
+                              onTap: () {
                                 setState(() {
                                   selectDate(context);
                                 });
-                              }
-                          ),
+                              }),
                           dropdown(
                               label: "Day:",
                               labelhint: Text("Select Item"),
-                              listitem: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                              listitem: [
+                                "Monday",
+                                "Tuesday",
+                                "Wednesday",
+                                "Thursday",
+                                "Friday",
+                                "Saturday",
+                                "Sunday"
+                              ],
                               valuechoose: valuechoose,
-                              onChanged: (newValue){
+                              onChanged: (newValue) {
                                 setState(() {
                                   valuechoose = newValue;
                                   day = valuechoose;
                                 });
-                              }
-                          ),
+                              }),
 //                          inputFile(
 //                              labelhint: "E.g Monday",
 //                              label: "Day:",
@@ -205,12 +211,9 @@ class _ReminderFormState extends State<ReminderForm> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    PreviewPage(str: reminderFormat)));
-//                          Navigator.push(
-//                            context,
-//                            MaterialPageRoute(builder: (context) => PreviewPage()),
-//                          );
+                                builder: (context) => PreviewPage(
+                                    str: reminderFormat,
+                                    category: "Reminder")));
                       }
                     },
                     color: Color(0xff0795A8),

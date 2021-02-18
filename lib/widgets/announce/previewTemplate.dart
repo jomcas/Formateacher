@@ -16,24 +16,19 @@ class Preview extends StatelessWidget {
 class PreviewTemplate extends StatefulWidget {
   final DocumentSnapshot Template;
 
-  PreviewTemplate(
-      {Key key,
-        this.Template})
-      : super(key: key);
+  PreviewTemplate({Key key, this.Template}) : super(key: key);
 
   @override
   _PreviewTemplateState createState() => _PreviewTemplateState();
 }
 
-
 class _PreviewTemplateState extends State<PreviewTemplate> {
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Send your message',
-        text: '${widget.Template.data["Template"]}',
+        text: '${widget.Template.data["template"]}',
         chooserTitle: 'Send');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,12 +71,11 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Scrollbar(
                       child: TextFormField(
                         style: TextStyle(fontSize: 20.0, fontFamily: 'Raleway'),
-                        initialValue:
-                        '${widget.Template.data["Template"]}',
+                        initialValue: '${widget.Template.data["template"]}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
@@ -132,7 +126,9 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SendViaSms(message: '${widget.Template.data["Template"]}')));
+                              builder: (context) => SendViaSms(
+                                  message:
+                                      '${widget.Template.data["template"]}')));
 //                      _sendSMS('${widget.str}', recipeients);
 //                      Navigator.push(
 //                        context,
@@ -179,7 +175,6 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
                   ),
                 ),
                 Divider(),
-
               ],
             ),
           )

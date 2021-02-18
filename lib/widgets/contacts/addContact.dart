@@ -12,8 +12,10 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContactState extends State<AddContact> {
+  final myController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
+
   String name = "";
   String number = "";
 
@@ -25,7 +27,7 @@ class _AddContactState extends State<AddContact> {
     final uid = user.uid;
 
     Map<String, dynamic> recipientData = {
-      "userID": uid,
+      "UID": uid,
       "name": name,
       "phone": number,
     };
@@ -99,6 +101,7 @@ class _AddContactState extends State<AddContact> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
+                              controller: myController,
                               label: "Name:",
                               validator: (val) =>
                                   val.isEmpty ? 'Enter Recipient Name' : null,
@@ -108,6 +111,7 @@ class _AddContactState extends State<AddContact> {
                                 });
                               }),
                           inputFile(
+                              controller: myController,
                               label: "Phone Number:",
                               validator: (val) =>
                                   val.isEmpty ? 'Enter Phone Number' : null,
@@ -134,7 +138,9 @@ class _AddContactState extends State<AddContact> {
                             "Added Contact Successfully!", "Ok");
                       }
 
-                      setState(() {});
+                      setState(() {
+                        myController.clear();
+                      });
                     },
                     color: Colors.blueGrey,
                     elevation: 0,

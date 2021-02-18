@@ -64,7 +64,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/important.png"),
+                                  image: AssetImage("images/Important.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
@@ -105,7 +105,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/clock.png"),
+                                  image: AssetImage("images/Schedule.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
@@ -146,7 +146,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/reminder.png"),
+                                  image: AssetImage("images/Reminder.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
@@ -185,7 +185,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/todolist.png"),
+                                  image: AssetImage("images/Todo.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(

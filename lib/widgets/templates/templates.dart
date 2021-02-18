@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/previewTemplate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mi_card/widgets/shared/alertDialog.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 // Announce Page
 class Templates extends StatelessWidget {
@@ -17,11 +19,18 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   //Get data in firestore
   Future getPosts() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+
     var firestore = Firestore.instance;
-    QuerySnapshot qn =
-        await firestore.collection("TemplateInfo").getDocuments();
+    QuerySnapshot qn = await firestore
+        .collection("TemplateInfo")
+        .where('UID', isEqualTo: uid)
+        .orderBy("timestamp", descending: false)
+        .getDocuments();
     return qn.documents;
   }
 
@@ -29,7 +38,20 @@ class _ListPageState extends State<ListPage> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => PreviewTemplate(template: post)));
+            builder: (context) => PreviewTemplate(Template: post)));
+  }
+
+  String getTemplateImage(dynamic category) {
+    if (category == 'Important') {
+      return "Important";
+    } else if (category == "Schedule") {
+      return "Schedule";
+    } else if (category == "Reminder") {
+      return "Reminder";
+    } else if (category == "Todo") {
+      return "Todo";
+    }
+    return "";
   }
 
   @override
@@ -82,14 +104,28 @@ class _ListPageState extends State<ListPage> {
                     );
                   } else {
                     return ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount:
+                            (snapshot.data == null) ? 0 : snapshot.data.length,
                         itemBuilder: (_, index) {
                           return ListTile(
                             leading: CircleAvatar(
-                              radius: 15,
-                              backgroundColor: Colors.teal,
-                              child: Text((index + 1).toString()),
+                              radius: 20,
+                              backgroundImage: AssetImage("images/" +
+                                  getTemplateImage(
+                                      snapshot.data[index].data["category"]) +
+                                  ".png"),
                             ),
+                            title: (Text(
+                                snapshot.data[index].data["template"] ??
+                                    "TEMPLATE")),
+                            subtitle: Text("Saved " +
+                                timeago.format(DateTime.tryParse(snapshot
+                                    .data[index].data["timestamp"]
+                                    .toDate()
+                                    .toString()))),
+                            onTap: () {
+                              navigateToDetail(snapshot.data[index]);
+                            },
                             trailing: IconButton(
                               icon: Icon(Icons.delete),
                               onPressed: () {
@@ -106,15 +142,10 @@ class _ListPageState extends State<ListPage> {
                                         .delete(snapshot.data[index].reference);
                                   });
                                   Navigator.pop(context);
+                                  setState(() {});
                                 });
                               },
                             ),
-                            title: (Text(
-                                snapshot.data[index].data["Template"] ??
-                                    "TEMPLATE")),
-                            onTap: () {
-                              navigateToDetail(snapshot.data[index]);
-                            },
                           );
                         });
                   }
@@ -123,33 +154,3 @@ class _ListPageState extends State<ListPage> {
     );
   }
 }
-
-//class _TemplateListItem extends ListTile {
-//  _TemplateListItem(Template template)
-//      : super(
-//            onTap: () {},
-//            title: new Text(template.title),
-//            subtitle: new Text(template.categoryAndDateTime),
-//            leading:
-//                new Checkbox(value: _isChecked, onChanged: (bool value) {}));
-//}
-//
-//class TemplatePage extends StatelessWidget {
-//  final List<Template> _templates;
-//
-//  TemplatePage(this._templates);
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scrollbar(
-//        child: ListView.builder(
-//      scrollDirection: Axis.vertical,
-//      shrinkWrap: true,
-//      padding: new EdgeInsets.symmetric(vertical: 8.0),
-//      itemBuilder: (context, index) {
-//        return new _TemplateListItem(_templates[index]);
-//      },
-//      itemCount: _templates.length,
-//    ));
-//  }
-//}

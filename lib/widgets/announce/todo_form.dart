@@ -15,8 +15,6 @@ class _TodoFormState extends State<TodoForm> {
   String time = '';
   String todoFormat = '';
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +42,7 @@ class _TodoFormState extends State<TodoForm> {
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: Image(
-              image: AssetImage('images/todolist.png'),
+              image: AssetImage('images/Todo.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -165,8 +163,10 @@ class _TodoFormState extends State<TodoForm> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    PreviewPage(str: todoFormat)));
+                                builder: (context) => PreviewPage(
+                                      str: todoFormat,
+                                      category: "Todo",
+                                    )));
                       }
                     },
                     color: Color(0xff0795A8),

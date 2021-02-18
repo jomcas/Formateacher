@@ -65,14 +65,13 @@ class _ScheduleFormState extends State<ScheduleForm> {
       dropdown(
           label: "Subject $index Class Type:",
           labelhint: Text("Select Class Type..."),
-          listitem: ["Asynchronous","Synchronous"],
+          listitem: ["Asynchronous", "Synchronous"],
           valueItem: subjectMessages[index - 1][1],
-          onChanged: (newValue){
+          onChanged: (newValue) {
             setState(() {
               subjectMessages[index - 1][1] = newValue;
             });
-          }
-    ),
+          }),
     );
 //    _fieldWidgets.add(
 //      inputFile(
@@ -176,7 +175,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-              image: AssetImage('images/clock.png'),
+              image: AssetImage('images/Schedule.png'),
               height: 10.0,
               width: 40.0,
             ),
@@ -245,11 +244,13 @@ class _ScheduleFormState extends State<ScheduleForm> {
                             print(getPreviewMessage());
                             print(subjectMessages);
 
-                               Navigator.push(
-                                   context,
-                                   MaterialPageRoute(
-                                       builder: (context) => PreviewPage(str: getPreviewMessage())));
-
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PreviewPage(
+                                          str: getPreviewMessage(),
+                                          category: "Schedule",
+                                        )));
                           }
                         },
                         color: Color(0xff0795A8),
@@ -309,9 +310,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
                           SizedBox(
                             height: 0.5,
                           ),
-                          Container(
-
-                          ),
+                          Container(),
                           Container(
                             padding: EdgeInsets.only(left: 10.0, right: 5.0),
                             height: 70.0,

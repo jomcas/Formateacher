@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/contacts/addContact.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,11 +12,18 @@ class Contacts extends StatefulWidget {
 }
 
 class _ContactsState extends State<Contacts> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   //Get recipient data in firestore
   Future getPosts() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+
     var firestores = Firestore.instance;
-    QuerySnapshot qn =
-        await firestores.collection("RecipientInfo").getDocuments();
+    QuerySnapshot qn = await firestores
+        .collection("RecipientInfo")
+        .where('UID', isEqualTo: uid)
+        .orderBy("phone", descending: false)
+        .getDocuments();
     return qn.documents;
   }
 
@@ -76,7 +84,8 @@ class _ContactsState extends State<Contacts> {
                     );
                   } else {
                     return ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount:
+                            (snapshot.data == null) ? 0 : snapshot.data.length,
                         itemBuilder: (_, index) {
                           return Recipient(
                               name: (Text(snapshot.data[index].data["name"] ??

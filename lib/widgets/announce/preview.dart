@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
-import 'package:mi_card/widgets/animation/slideRight.dart';
 import 'package:mi_card/widgets/announce/sendViaSms.dart';
-import 'package:mi_card/widgets/signUp.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:mi_card/widgets/shared/alertDialog.dart';
 
 class Preview extends StatelessWidget {
   @override
@@ -15,6 +14,7 @@ class Preview extends StatelessWidget {
 
 class PreviewPage extends StatefulWidget {
   String str = "hg";
+  String category = "";
   String classCode = "";
   String subjectType = "";
   String subjectName = "";
@@ -22,6 +22,7 @@ class PreviewPage extends StatefulWidget {
 
   PreviewPage(
       {Key key,
+      this.category,
       this.str,
       this.classCode,
       this.subjectType,
@@ -37,6 +38,8 @@ class PreviewPage extends StatefulWidget {
 //List<String> recipeients = ["09278880720","09554361983","09759930453"];
 
 class _PreviewPageState extends State<PreviewPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  bool _isButtonDisabled;
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Send your message',
@@ -47,13 +50,34 @@ class _PreviewPageState extends State<PreviewPage> {
   //Save templates to database
   Map data;
 
-  addTemplate() {
+  addTemplate() async {
+    final FirebaseUser user = await auth.currentUser();
+    final uid = user.uid;
+
     Map<String, dynamic> templateData = {
-      "Template": '${widget.str}',
+      "UID": uid,
+      "category": '${widget.category}',
+      "template": '${widget.str}',
+      "timestamp": DateTime.now(),
     };
     CollectionReference collectionReference =
         Firestore.instance.collection('TemplateInfo');
     collectionReference.add(templateData);
+  }
+
+  void saveToTemplates() {
+    showAlertDialogTwoButtons(context, Icon(Icons.speaker_notes),
+        "Do you want to save this template?", "CANCEL", "CONFIRM", () {
+      addTemplate();
+      _isButtonDisabled = true;
+      setState(() {});
+      Navigator.pop(context);
+    });
+  }
+
+  @override
+  void initState() {
+    _isButtonDisabled = false;
   }
 
   @override
@@ -126,19 +150,18 @@ class _PreviewPageState extends State<PreviewPage> {
                         )
                       ],
                     )),
+                // _buildCounterButton(),
                 SizedBox(
                     width: 360,
                     child: FlatButton(
-                        onPressed: () {
-                          addTemplate();
-//                          Navigator.push(
-//                            context,
-//                            SlideRightRoute(page: SignUp()),
-//                          );
-                        },
+                        onPressed:
+                            _isButtonDisabled ? null : () => saveToTemplates(),
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Text('Save to Templates..',
+                          child: Text(
+                              _isButtonDisabled
+                                  ? 'Already Saved..'
+                                  : "Save to Templates..",
                               textAlign: TextAlign.end,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w700)),
@@ -200,7 +223,6 @@ class _PreviewPageState extends State<PreviewPage> {
                   ),
                 ),
                 Divider(),
-
                 SizedBox(
                   height: 25,
                 ),
@@ -212,10 +234,3 @@ class _PreviewPageState extends State<PreviewPage> {
     );
   }
 }
-
-//void _sendSMS(String message, List<String> recipients) async {
-//  String _result = await sendSMS(message: message, recipients: recipients).catchError((onError){
-//    print(onError);
-//  });
-//  print(_result);
-//}
