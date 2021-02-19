@@ -64,7 +64,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/Important.png"),
+                                  image: AssetImage("images/important.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(
@@ -146,7 +146,7 @@ class Announce extends StatelessWidget {
                           height: 75,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("images/Reminder.png"),
+                                  image: AssetImage("images/reminder.png"),
                                   fit: BoxFit.fitHeight)),
                         ),
                         ListTile(

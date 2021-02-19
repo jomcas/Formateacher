@@ -31,6 +31,7 @@ class _ListPageState extends State<ListPage> {
         .where('UID', isEqualTo: uid)
         .orderBy("timestamp", descending: false)
         .getDocuments();
+    print(uid);
     return qn.documents;
   }
 
@@ -43,11 +44,11 @@ class _ListPageState extends State<ListPage> {
 
   String getTemplateImage(dynamic category) {
     if (category == 'Important') {
-      return "Important";
+      return "important";
     } else if (category == "Schedule") {
       return "Schedule";
     } else if (category == "Reminder") {
-      return "Reminder";
+      return "reminder";
     } else if (category == "Todo") {
       return "Todo";
     }
@@ -109,7 +110,8 @@ class _ListPageState extends State<ListPage> {
                         itemBuilder: (_, index) {
                           return ListTile(
                             leading: CircleAvatar(
-                              radius: 20,
+                              radius: 25,
+                              backgroundColor: Colors.white,
                               backgroundImage: AssetImage("images/" +
                                   getTemplateImage(
                                       snapshot.data[index].data["category"]) +
