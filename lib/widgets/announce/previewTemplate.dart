@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
-import 'package:mi_card/widgets/animation/slideRight.dart';
 import 'package:mi_card/widgets/announce/sendViaSms.dart';
-import 'package:mi_card/widgets/signUp.dart';
 import 'package:flutter_share/flutter_share.dart';
 
 class Preview extends StatelessWidget {
@@ -14,9 +11,9 @@ class Preview extends StatelessWidget {
 }
 
 class PreviewTemplate extends StatefulWidget {
-  final DocumentSnapshot Template;
+  final DocumentSnapshot template;
 
-  PreviewTemplate({Key key, this.Template}) : super(key: key);
+  PreviewTemplate({Key key, this.template}) : super(key: key);
 
   @override
   _PreviewTemplateState createState() => _PreviewTemplateState();
@@ -26,7 +23,7 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
   Future<void> share() async {
     await FlutterShare.share(
         title: 'Send your message',
-        text: '${widget.Template.data["template"]}',
+        text: '${widget.template.data["template"]}',
         chooserTitle: 'Send');
   }
 
@@ -75,7 +72,7 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
                     child: Scrollbar(
                       child: TextFormField(
                         style: TextStyle(fontSize: 20.0, fontFamily: 'Raleway'),
-                        initialValue: '${widget.Template.data["template"]}',
+                        initialValue: '${widget.template.data["template"]}',
                         readOnly: true,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
@@ -128,7 +125,7 @@ class _PreviewTemplateState extends State<PreviewTemplate> {
                           MaterialPageRoute(
                               builder: (context) => SendViaSms(
                                   message:
-                                      '${widget.Template.data["template"]}')));
+                                      '${widget.template.data["template"]}')));
 //                      _sendSMS('${widget.str}', recipeients);
 //                      Navigator.push(
 //                        context,

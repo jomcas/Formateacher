@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/announce/previewTemplate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mi_card/widgets/shared/alertDialog.dart';
+import 'package:mi_card/widgets/shared/loading.dart';
+import 'package:mi_card/widgets/templates/templatesModel.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-// Announce Page
 class Templates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,58 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  TextEditingController _searchController = TextEditingController();
+  List _allResults = [];
+  List _resultsList = [];
+  Future resultsLoaded;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getPosts().then((value) {
+      loading = false;
+    });
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+    print(_searchController.text);
+  }
+
+  searchResultsList() {
+    var showResults = [];
+    if (_searchController.text != "") {
+      for (var templateSnapshot in _allResults) {
+        var template =
+            Template.fromSnapshot(templateSnapshot).template.toLowerCase();
+
+        if (template.contains(_searchController.text.toLowerCase())) {
+          showResults.add(templateSnapshot);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
   //Get data in firestore
   Future getPosts() async {
     final FirebaseUser user = await auth.currentUser();
@@ -29,26 +82,53 @@ class _ListPageState extends State<ListPage> {
     QuerySnapshot qn = await firestore
         .collection("TemplateInfo")
         .where('UID', isEqualTo: uid)
-        .orderBy("timestamp", descending: false)
+        .orderBy("timestamp", descending: true)
         .getDocuments();
-    print(uid);
+    setState(() {
+      _allResults = qn.documents;
+    });
+    searchResultsList();
     return qn.documents;
+  }
+
+//Deleting a contact in firestore
+  deleteContact(String uid, String category, String template) async {
+    Firestore.instance
+        .collection("TemplateInfo")
+        .where("UID", isEqualTo: uid)
+        .where("category", isEqualTo: category)
+        .where("template", isEqualTo: template)
+        .getDocuments()
+        .then((value) {
+      value.documents.forEach((element) {
+        Firestore.instance
+            .collection("TemplateInfo")
+            .document(element.documentID)
+            .delete()
+            .then((value) {
+          print("Success!");
+        });
+        setState(() {
+          getPosts();
+        });
+      });
+    });
   }
 
   navigateToDetail(DocumentSnapshot post) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => PreviewTemplate(Template: post)));
+            builder: (context) => PreviewTemplate(template: post)));
   }
 
   String getTemplateImage(dynamic category) {
     if (category == 'Important') {
-      return "important";
+      return "Important";
     } else if (category == "Schedule") {
       return "Schedule";
     } else if (category == "Reminder") {
-      return "reminder";
+      return "Reminder";
     } else if (category == "Todo") {
       return "Todo";
     }
@@ -87,6 +167,7 @@ class _ListPageState extends State<ListPage> {
               children: <Widget>[
                 Container(
                     child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
                       labelText: 'Search Template',
                       border: OutlineInputBorder(
@@ -96,62 +177,53 @@ class _ListPageState extends State<ListPage> {
               ],
             )),
         Expanded(
-            child: FutureBuilder(
-                future: getPosts(),
-                builder: (_, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: Text("Loading..."),
-                    );
-                  } else {
-                    return ListView.builder(
-                        itemCount:
-                            (snapshot.data == null) ? 0 : snapshot.data.length,
-                        itemBuilder: (_, index) {
-                          return ListTile(
-                            leading: CircleAvatar(
-                              radius: 25,
-                              backgroundColor: Colors.white,
-                              backgroundImage: AssetImage("images/" +
-                                  getTemplateImage(
-                                      snapshot.data[index].data["category"]) +
-                                  ".png"),
-                            ),
-                            title: (Text(
-                                snapshot.data[index].data["template"] ??
-                                    "TEMPLATE")),
-                            subtitle: Text("Saved " +
-                                timeago.format(DateTime.tryParse(snapshot
-                                    .data[index].data["timestamp"]
-                                    .toDate()
-                                    .toString()))),
-                            onTap: () {
-                              navigateToDetail(snapshot.data[index]);
-                            },
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                showAlertDialogTwoButtons(
-                                    context,
-                                    Icon(Icons.delete_forever,
-                                        size: 50, color: Colors.black),
-                                    ' Do you want to delete this template?',
-                                    'CANCEL',
-                                    'DELETE', () async {
-                                  await Firestore.instance.runTransaction(
-                                      (Transaction myTransaction) async {
-                                    await myTransaction
-                                        .delete(snapshot.data[index].reference);
-                                  });
-                                  Navigator.pop(context);
-                                  setState(() {});
-                                });
+            child: loading
+                ? Loading()
+                : ListView.builder(
+                    itemCount: (_resultsList == null) ? 0 : _resultsList.length,
+                    itemBuilder: (_, index) {
+                      return (_resultsList.isEmpty)
+                          ? Center(child: Text("No templates found. "))
+                          : ListTile(
+                              leading: CircleAvatar(
+                                radius: 25,
+                                backgroundColor: Colors.white,
+                                backgroundImage: AssetImage("images/" +
+                                    getTemplateImage(
+                                        _resultsList[index]["category"]) +
+                                    ".png"),
+                              ),
+                              title: (Text(_resultsList[index]["template"] ??
+                                  "TEMPLATE")),
+                              subtitle: Text("Saved " +
+                                  timeago.format(DateTime.tryParse(
+                                      _resultsList[index]["timestamp"]
+                                          .toDate()
+                                          .toString()))),
+                              onTap: () {
+                                navigateToDetail(_resultsList[index]);
                               },
-                            ),
-                          );
-                        });
-                  }
-                })),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  showAlertDialogTwoButtons(
+                                      context,
+                                      Icon(Icons.delete_forever,
+                                          size: 50, color: Colors.black),
+                                      ' Do you want to delete this template?',
+                                      'CANCEL',
+                                      'DELETE', () async {
+                                    deleteContact(
+                                        _resultsList[index]["UID"],
+                                        _resultsList[index]["category"],
+                                        _resultsList[index]["template"]);
+
+                                    Navigator.pop(context);
+                                    setState(() {});
+                                  });
+                                },
+                              ));
+                    })),
       ]))),
     );
   }

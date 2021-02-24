@@ -1,28 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Template {
-  final String title;
-  final String categoryAndDateTime;
+  String uid;
+  String category;
+  String template;
+  DateTime timestamp;
 
-  const Template({this.title, this.categoryAndDateTime});
+  Template(this.uid, this.category, this.template, this.timestamp);
+
+  Template.fromSnapshot(DocumentSnapshot snapshot)
+      : uid = snapshot['uid'],
+        category = snapshot['category'],
+        template = snapshot['template'],
+        timestamp = snapshot['timestamp'].toDate();
 }
-
-const kTemplates = const <Template>[
-  const Template(
-      title: 'Schedule for MWF class',
-      categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Mathematics Quiz', categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Week 4 Distribution of Modules',
-      categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Schedule for MWF class',
-      categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Mathematics Quiz', categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Week 4 Distribution of Modules',
-      categoryAndDateTime: 'Schedule - 01/03/2021'),
-  const Template(
-      title: 'Schedule for MWF class',
-      categoryAndDateTime: 'Schedule - 01/03/2021'),
-];

@@ -222,7 +222,8 @@ class _SignUpState extends State<SignUp> {
 
 //Text Widget
 Widget inputFile(
-    {label,
+    {keyboardType,
+    label,
     obscureText = false,
     onChanged,
     onTap,
@@ -243,6 +244,7 @@ Widget inputFile(
         height: 5,
       ),
       TextFormField(
+        keyboardType: keyboardType,
         controller: controller,
         initialValue: initialvalue,
         readOnly: readOnly,

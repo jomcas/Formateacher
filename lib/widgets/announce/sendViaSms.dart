@@ -9,7 +9,7 @@ import 'package:flutter_sms/flutter_sms.dart';
 List<String> recipients = [];
 
 class SendViaSms extends StatefulWidget {
-  String message = "";
+  final String message;
 
   SendViaSms({Key key, this.message}) : super(key: key);
 

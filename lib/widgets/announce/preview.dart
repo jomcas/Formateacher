@@ -34,9 +34,6 @@ class PreviewPage extends StatefulWidget {
   _PreviewPageState createState() => _PreviewPageState();
 }
 
-// List of numbers to send to one or many numbers.
-//List<String> recipeients = ["09278880720","09554361983","09759930453"];
-
 class _PreviewPageState extends State<PreviewPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   bool _isButtonDisabled;
@@ -77,6 +74,7 @@ class _PreviewPageState extends State<PreviewPage> {
 
   @override
   void initState() {
+    super.initState();
     _isButtonDisabled = false;
   }
 

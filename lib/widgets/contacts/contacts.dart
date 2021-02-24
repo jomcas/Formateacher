@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mi_card/widgets/contacts/addContact.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mi_card/widgets/contacts/contactsModel.dart';
 import 'package:mi_card/widgets/shared/alertDialog.dart';
-
-// Announce Page
+import 'package:mi_card/widgets/shared/loading.dart';
 
 class Contacts extends StatefulWidget {
   @override
@@ -13,6 +13,58 @@ class Contacts extends StatefulWidget {
 
 class _ContactsState extends State<Contacts> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  TextEditingController _searchController = TextEditingController();
+  List _allResults = [];
+  List _resultsList = [];
+  Future resultsLoaded;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getPosts().then((value) {
+      loading = false;
+    });
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+    print(_searchController.text);
+  }
+
+  searchResultsList() {
+    var showResults = [];
+
+    if (_searchController.text != "") {
+      for (var contactSnapshot in _allResults) {
+        var name = Contact.fromSnapshot(contactSnapshot).name.toLowerCase();
+
+        if (name.contains(_searchController.text.toLowerCase())) {
+          showResults.add(contactSnapshot);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
   //Get recipient data in firestore
   Future getPosts() async {
     final FirebaseUser user = await auth.currentUser();
@@ -24,13 +76,50 @@ class _ContactsState extends State<Contacts> {
         .where('UID', isEqualTo: uid)
         .orderBy("phone", descending: false)
         .getDocuments();
-    return qn.documents;
+    setState(() {
+      _allResults = qn.documents;
+    });
+    searchResultsList();
+    return "Complete";
   }
 
-  @override
-  void initState() {
-    super.initState();
-    setState(() {});
+  // Future getPostsDelete() async {
+  //   final FirebaseUser user = await auth.currentUser();
+  //   final uid = user.uid;
+
+  //   var firestores = Firestore.instance;
+  //   QuerySnapshot qn = await firestores
+  //       .collection("RecipientInfo")
+  //       .where('UID', isEqualTo: uid)
+  //       .orderBy("phone", descending: false)
+  //       .getDocuments();
+
+  //   searchResultsList();
+  //   return "Complete";
+  // }
+
+//Deleting a contact in firestore
+  deleteContact(String uid, String name, String phone) async {
+    Firestore.instance
+        .collection("RecipientInfo")
+        .where("UID", isEqualTo: uid)
+        .where("name", isEqualTo: name)
+        .where("phone", isEqualTo: phone)
+        .getDocuments()
+        .then((value) {
+      value.documents.forEach((element) {
+        Firestore.instance
+            .collection("RecipientInfo")
+            .document(element.documentID)
+            .delete()
+            .then((value) {
+          print("Success!");
+        });
+        setState(() {
+          getPosts();
+        });
+      });
+    });
   }
 
   @override
@@ -66,6 +155,7 @@ class _ContactsState extends State<Contacts> {
               children: <Widget>[
                 Container(
                     child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
                       labelText: 'Search Contact',
                       border: OutlineInputBorder(
@@ -75,39 +165,28 @@ class _ContactsState extends State<Contacts> {
               ],
             )),
         Expanded(
-            child: FutureBuilder(
-                future: getPosts(),
-                builder: (_, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: Text("Loading..."),
-                    );
-                  } else {
-                    return ListView.builder(
-                        itemCount:
-                            (snapshot.data == null) ? 0 : snapshot.data.length,
-                        itemBuilder: (_, index) {
-                          return Recipient(
-                              name: (Text(snapshot.data[index].data["name"] ??
-                                      "NAME")
-                                  .data),
-                              phone: (Text(snapshot.data[index].data["phone"] ??
-                                      "PHONENUMBER")
-                                  .data),
-                              delete: () async {
-                                // Deleting a file
-                                await Firestore.instance.runTransaction(
-                                    (Transaction myTransaction) async {
-                                  await myTransaction
-                                      .delete(snapshot.data[index].reference);
-                                });
-                                Navigator.pop(context);
+            child: loading
+                ? Loading()
+                : ListView.builder(
+                    itemCount: (_resultsList == null) ? 0 : _resultsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Recipient(
+                          name: (Text(_resultsList[index]["name"] ?? "NAME")
+                              .data),
+                          phone: (Text(
+                                  _resultsList[index]["phone"] ?? "PHONENUMBER")
+                              .data),
+                          delete: () async {
+                            deleteContact(
+                                _resultsList[index]["UID"],
+                                _resultsList[index]["name"],
+                                _resultsList[index]["phone"]);
 
-                                setState(() {});
-                              });
-                        });
-                  }
-                })),
+                            Navigator.pop(context);
+
+                            setState(() {});
+                          });
+                    })),
       ]))),
       floatingActionButton: Container(
         height: 60.0,

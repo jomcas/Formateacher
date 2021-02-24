@@ -12,7 +12,8 @@ class AddContact extends StatefulWidget {
 }
 
 class _AddContactState extends State<AddContact> {
-  final myController = TextEditingController();
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
@@ -101,7 +102,7 @@ class _AddContactState extends State<AddContact> {
                       child: Column(
                         children: <Widget>[
                           inputFile(
-                              controller: myController,
+                              controller: nameController,
                               label: "Name:",
                               validator: (val) =>
                                   val.isEmpty ? 'Enter Recipient Name' : null,
@@ -111,7 +112,8 @@ class _AddContactState extends State<AddContact> {
                                 });
                               }),
                           inputFile(
-                              controller: myController,
+                              keyboardType: TextInputType.number,
+                              controller: phoneController,
                               label: "Phone Number:",
                               validator: (val) =>
                                   val.isEmpty ? 'Enter Phone Number' : null,
@@ -139,7 +141,8 @@ class _AddContactState extends State<AddContact> {
                       }
 
                       setState(() {
-                        myController.clear();
+                        nameController.clear();
+                        phoneController.clear();
                       });
                     },
                     color: Colors.blueGrey,

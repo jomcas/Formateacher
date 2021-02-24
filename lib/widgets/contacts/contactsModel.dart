@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Contact {
-  String fullName;
-  String contactNumber;
-  bool isSelected;
+  String uid;
+  String name;
+  String phone;
 
-  Contact({this.fullName, this.contactNumber, this.isSelected});
+  Contact(this.uid, this.name, this.phone);
 
-  Contact.fromJson(var value) {
-    this.fullName = value["name"];
-    this.contactNumber = value["phone"];
-    this.isSelected = false;
-  }
+  Contact.fromSnapshot(DocumentSnapshot snapshot)
+      : uid = snapshot['uid'],
+        name = snapshot['name'],
+        phone = snapshot['phone'];
 }
