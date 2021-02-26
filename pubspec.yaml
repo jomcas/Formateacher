@@ -25,6 +25,8 @@ dependencies:
   flutter_sms: ^2.1.1
   timeago: ^2.0.29
   intl: ^0.16.1
+  bottom_navy_bar: ^5.6.0
+  animated_splash_screen: ^1.0.1+2
   
 dev_dependencies:
   flutter_test:

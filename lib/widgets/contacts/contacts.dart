@@ -125,30 +125,39 @@ class _ContactsState extends State<Contacts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Image(image: AssetImage("images/phone.png"), height: 35,),
+        ),
+        backgroundColor: Color(0xff0795A8),
+        elevation: 0,
+        title: Text("Phonebook", style: TextStyle(color: Colors.white),),
+      ),
       body: SafeArea(
           child: Container(
               child: Column(children: <Widget>[
         Container(
           margin: const EdgeInsets.all(4.0),
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 0),
         ),
-        Container(
-          padding: EdgeInsets.only(bottom: 100),
-          height: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/phonebook.png"),
-                  fit: BoxFit.fitHeight)),
-        ),
-        Container(
-          margin: const EdgeInsets.all(4.0),
-          padding: const EdgeInsets.only(top: 5),
-        ),
-        Text('Phonebook',
-            style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
+//        Container(
+//          padding: EdgeInsets.only(bottom: 100),
+//          height: 150,
+//          decoration: BoxDecoration(
+//              image: DecorationImage(
+//                  image: AssetImage("images/phonebook.png"),
+//                  fit: BoxFit.fitHeight)),
+//        ),
+//        Container(
+//          margin: const EdgeInsets.all(4.0),
+//          padding: const EdgeInsets.only(top: 5),
+//        ),
+//        Text('Phonebook',
+//            style: TextStyle(
+//                fontSize: 35,
+//                fontWeight: FontWeight.bold,
+//                color: Colors.black)),
         Container(
             padding: EdgeInsets.all(10),
             child: Column(

@@ -226,7 +226,7 @@ class _ScheduleFormState extends State<ScheduleForm> {
                       height: 10,
                     ),
                     SizedBox(
-                      width: 335,
+                      width: 290,
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
@@ -269,13 +269,13 @@ class _ScheduleFormState extends State<ScheduleForm> {
                       ),
                     ),
                     SizedBox(
-                      width: 900,
+                      width: 300,
                       child: Row(
                         children: [
                           Container(
-                            padding: EdgeInsets.only(left: 15.0),
-//                height: 70.0,
-//                width: 160.0,
+                            padding: EdgeInsets.only(left: 10.0),
+                            height: 70.0,
+                            width: 135.0,
                             child: FittedBox(
                               child: FloatingActionButton.extended(
                                   heroTag: 'btn1',
@@ -312,9 +312,9 @@ class _ScheduleFormState extends State<ScheduleForm> {
                           ),
                           Container(),
                           Container(
-                            padding: EdgeInsets.only(left: 10.0, right: 5.0),
+                            padding: EdgeInsets.only(left: 12.0, right: 5.0),
                             height: 70.0,
-                            width: 180.0,
+                            width: 155.0,
                             child: FittedBox(
                               child: FloatingActionButton.extended(
                                   heroTag: 'btn2',

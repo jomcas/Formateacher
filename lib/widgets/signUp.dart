@@ -150,7 +150,7 @@ class _SignUpState extends State<SignUp> {
                         height: 10,
                       ),
                       SizedBox(
-                        width: 300,
+                        width: 290,
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,

@@ -63,10 +63,10 @@ class _SignInState extends State<SignIn> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "Login to your account",
-                      style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                    ),
+//                    Text(
+//                      "Login to your account",
+//                      style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+//                    ),
                   ],
                 ),
                 Container(
@@ -106,7 +106,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         Divider(),
                         SizedBox(
-                          width: 335,
+                          width: 290,
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,

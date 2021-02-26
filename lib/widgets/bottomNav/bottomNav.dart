@@ -3,6 +3,7 @@ import 'package:mi_card/widgets/announce/announce.dart';
 import 'package:mi_card/widgets/templates/templates.dart';
 import 'package:mi_card/widgets/contacts/contacts.dart';
 import 'package:mi_card/widgets/profile/profile.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class BottomNav extends StatefulWidget {
   final int index;
@@ -28,26 +29,36 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        currentIndex: _currentIndex,
+      bottomNavigationBar: BottomNavyBar(
+        onItemSelected: onTabTapped,
+        selectedIndex: _currentIndex,
         backgroundColor: Colors.white,
-        selectedItemColor: Color(0xff0795A8),
-        unselectedItemColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.record_voice_over), label: 'Announce'),
-          BottomNavigationBarItem(
+        itemCornerRadius: 24,
+        curve: Curves.easeIn,
+//        selectedItemColor: Color(0xff0795A8),
+//        unselectedItemColor: Colors.black,
+//        type: BottomNavigationBarType.fixed,
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+              icon: new Icon(Icons.record_voice_over), title: Text('Announce'),
+            activeColor: Color(0xff0795A8),
+            textAlign: TextAlign.center,),
+          BottomNavyBarItem(
             icon: new Icon(Icons.speaker_notes),
-            label: 'Templates',
+            title: Text('Templates'),
+            activeColor: Color(0xff0795A8),
+            textAlign: TextAlign.center,
           ),
-          BottomNavigationBarItem(
+          BottomNavyBarItem(
             icon: new Icon(Icons.contacts),
-            label: 'Contacts',
+            title: Text('Contacts'),
+            activeColor: Color(0xff0795A8),
+            textAlign: TextAlign.center,
           ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.insert_emoticon_outlined), label: 'Profile')
+          BottomNavyBarItem(
+              icon: Icon(Icons.insert_emoticon_outlined), title: Text('Profile'),
+              activeColor: Color(0xff0795A8),
+              textAlign: TextAlign.center,)
         ],
       ),
     );

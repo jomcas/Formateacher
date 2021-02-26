@@ -124,11 +124,11 @@ class _ListPageState extends State<ListPage> {
 
   String getTemplateImage(dynamic category) {
     if (category == 'Important') {
-      return "Important";
+      return "important";
     } else if (category == "Schedule") {
       return "Schedule";
     } else if (category == "Reminder") {
-      return "Reminder";
+      return "reminder";
     } else if (category == "Todo") {
       return "Todo";
     }
@@ -138,29 +138,38 @@ class _ListPageState extends State<ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Image(image: AssetImage("images/template.png"), height: 35,),
+        ),
+        backgroundColor: Color(0xff0795A8),
+        elevation: 0,
+        title: Text("Templates", style: TextStyle(color: Colors.white),),
+      ),
       body: SafeArea(
           child: Container(
               child: Column(children: <Widget>[
-        Container(
-          margin: const EdgeInsets.all(4.0),
-          padding: const EdgeInsets.only(top: 30),
-        ),
-        Container(
-          padding: EdgeInsets.only(bottom: 100),
-          height: 150,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/template.png"),
-                  fit: BoxFit.fitHeight)),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text('Templates',
-            style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-                color: Colors.black)),
+                Container(
+                  margin: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.only(top: 0),
+                ),
+//        Container(
+//          padding: EdgeInsets.only(bottom: 100),
+//          height: 150,
+//          decoration: BoxDecoration(
+//              image: DecorationImage(
+//                  image: AssetImage("images/template.png"),
+//                  fit: BoxFit.fitHeight)),
+//        ),
+//        SizedBox(
+//          height: 10,
+//        ),
+//        Text('Templates',
+//            style: TextStyle(
+//                fontSize: 35,
+//                fontWeight: FontWeight.bold,
+//                color: Colors.black)),
         Container(
             padding: EdgeInsets.all(10),
             child: Column(
@@ -185,14 +194,18 @@ class _ListPageState extends State<ListPage> {
                       return (_resultsList.isEmpty)
                           ? Center(child: Text("No templates found. "))
                           : ListTile(
-                              leading: CircleAvatar(
-                                radius: 25,
-                                backgroundColor: Colors.white,
-                                backgroundImage: AssetImage("images/" +
+                              leading: Image(height: 40, image: AssetImage("images/" +
                                     getTemplateImage(
                                         _resultsList[index]["category"]) +
-                                    ".png"),
-                              ),
+                                    ".png"),),
+//                              CircleAvatar(
+//                                radius: 25,
+//                                backgroundColor: Colors.white,
+//                                backgroundImage: AssetImage("images/" +
+//                                    getTemplateImage(
+//                                        _resultsList[index]["category"]) +
+//                                    ".png"),
+//                              ),
                               title: (Text(_resultsList[index]["template"] ??
                                   "TEMPLATE")),
                               subtitle: Text("Saved " +

@@ -151,7 +151,7 @@ class _TodoFormState extends State<TodoForm> {
                   height: 10,
                 ),
                 SizedBox(
-                  width: 335,
+                  width: 290,
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,

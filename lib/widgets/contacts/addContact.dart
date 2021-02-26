@@ -42,9 +42,10 @@ class _AddContactState extends State<AddContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Add Contact", style: TextStyle(color: Colors.white),),
         elevation: 0,
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff0795A8),
         leading: IconButton(
           onPressed: () {
             Navigator.push(
@@ -65,34 +66,34 @@ class _AddContactState extends State<AddContact> {
         children: <Widget>[
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 5),
+            padding: const EdgeInsets.only(top: 35),
           ),
           Container(
             padding: EdgeInsets.only(bottom: 100),
             height: 150,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("images/add.png"),
+                    image: AssetImage("images/addcontact.png"),
                     fit: BoxFit.fitHeight)),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Text('Add Contacts',
-              style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 35,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                  letterSpacing: 0)),
+//          SizedBox(
+//            height: 5,
+//          ),
+//          Text('Add Contacts',
+//              style: TextStyle(
+//                  fontFamily: 'Inter',
+//                  fontSize: 35,
+//                  fontWeight: FontWeight.w700,
+//                  color: Colors.black,
+//                  letterSpacing: 0)),
           Container(
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 5),
           ),
           Container(
             child: Column(
               children: <Widget>[
-                Divider(),
+
                 SizedBox(
                   width: 400,
                   child: Padding(
@@ -127,7 +128,7 @@ class _AddContactState extends State<AddContact> {
                     ),
                   ),
                 ),
-                Divider(),
+                SizedBox(height: 25,),
                 SizedBox(
                   width: 300,
                   child: MaterialButton(
@@ -151,7 +152,7 @@ class _AddContactState extends State<AddContact> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
-                      "Add",
+                      "Add Recipient",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
