@@ -13,13 +13,16 @@ class _ImportantformState extends State<Importantform> {
   String grade = '';
   String section = '';
   String date = '';
-  String startTime = '';
-  String endTime = '';
+  TimeOfDay startTime;
+  TimeOfDay endTime;
+  TimeOfDay recentstartTime;
+  TimeOfDay recentendTime;
   String importantFormat = '';
 
   int year = 0;
   int days = 0;
   int month = 0;
+
 
   DateTime _date = DateTime.now();
   Future<Null> selectDate(BuildContext context) async {
@@ -40,6 +43,43 @@ class _ImportantformState extends State<Importantform> {
         print(date);
       });
     }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    recentstartTime = TimeOfDay.now();
+    recentendTime = TimeOfDay.now();
+  }
+
+
+  Future<Null> selectstartTime (BuildContext context) async {
+    startTime = await showTimePicker(
+      context: context,
+      initialTime: recentstartTime
+    );
+
+    if(startTime != null){
+      setState(() {
+        recentstartTime = startTime;
+      });
+    }
+
+
+  }
+
+  Future<Null> selectendTime (BuildContext context) async {
+    endTime = await showTimePicker(
+        context: context,
+        initialTime: recentendTime
+    );
+
+    if(endTime != null){
+      setState(() {
+        recentendTime = endTime;
+      });
+    }
+
   }
 
   @override
@@ -164,25 +204,27 @@ class _ImportantformState extends State<Importantform> {
                                 });
                               }),
                           inputFile(
-                              labelhint: "E.g 10am",
+                              readOnly: true,
                               label: "Start Time:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please put start time of event'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() => startTime = val);
-                              }),
+//                              validator: (val) => val.isEmpty
+//                                  ? 'Please put start time of event'
+//                                  : null,
+                              onTap: (){
+                                selectstartTime(context);
+                              },
+                              labelhint: "${recentstartTime.format(context)}" == '' ? "Select Time..." : "${recentstartTime.format(context)}",
+                              ),
                           inputFile(
-                              labelhint: "E.g 11am",
+                              readOnly: true,
                               label: "End Time:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please put end time of event'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() {
-                                  endTime = val;
-                                });
-                              }),
+//                              validator: (val) => val.isEmpty
+//                                  ? 'Please put end time of event'
+//                                  : null,
+                              onTap: (){
+                                selectendTime(context);
+                              },
+                              labelhint: "${recentendTime.format(context)}" == '' ? "Select Time..." : "${recentendTime.format(context)}",
+                              ),
                         ],
                       ),
                     ),
@@ -199,7 +241,7 @@ class _ImportantformState extends State<Importantform> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         importantFormat =
-                            'To all grade $grade student section $section. There will be a $purpose on $date at around $startTime to $endTime.';
+                            'To all grade $grade student section $section. There will be a $purpose on $date at around ${recentstartTime.format(context)} to ${recentendTime.format(context)}.';
                         print(importantFormat);
 
                         Navigator.push(

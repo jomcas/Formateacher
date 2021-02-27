@@ -12,7 +12,8 @@ class _ReminderFormState extends State<ReminderForm> {
   String purpose = '';
   String day = '';
   String date = '';
-  String time = '';
+  TimeOfDay time;
+  TimeOfDay starttime;
   String platform = '';
   String reminderFormat = '';
 
@@ -41,6 +42,27 @@ class _ReminderFormState extends State<ReminderForm> {
         print(date);
       });
     }
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    time = TimeOfDay.now();
+  }
+
+  Future<Null> selectTime (BuildContext context) async {
+    starttime = await showTimePicker(
+        context: context,
+        initialTime: time
+    );
+
+    if(starttime != null){
+      setState(() {
+        time = starttime;
+      });
+    }
+
+
   }
 
   @override
@@ -174,18 +196,20 @@ class _ReminderFormState extends State<ReminderForm> {
 //                              }),
 
                           inputFile(
-                              labelhint: "E.g 2pm",
+                              readOnly: true,
                               label: "Time:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter time for upcoming event'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() => time = val);
-                              }),
+//                              validator: (val) => val.isEmpty
+//                                  ? 'Please enter time for upcoming event'
+//                                  : null,
+                              onTap: (){
+                                selectTime(context);
+                              },
+                              labelhint: "${time.format(context)}" == '' ? "Select Time..." : "${time.format(context)}",
+                            ),
                           inputFile(
                               labelhint: "E.g Google Meet",
                               label: "Platform:",
-                              validator: (val) => val.length < 6
+                              validator: (val) => val.isEmpty
                                   ? 'Please enter plaform that will be used.'
                                   : null,
                               onChanged: (val) {
@@ -207,7 +231,7 @@ class _ReminderFormState extends State<ReminderForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         reminderFormat =
-                            "Good Day Students I just wanted to remind you about the meeting we have scheduled for $day $date at $time. That will be held using $platform, and we'll be discussing $purpose.";
+                            "Good Day Students I just wanted to remind you about the meeting we have scheduled for $day $date at ${time.format(context)}. That will be held using $platform, and we'll be discussing $purpose.";
                         Navigator.push(
                             context,
                             MaterialPageRoute(

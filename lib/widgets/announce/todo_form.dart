@@ -12,8 +12,30 @@ class _TodoFormState extends State<TodoForm> {
   String grade = '';
   String section = '';
   String activity = '';
-  String time = '';
+  TimeOfDay time;
+  TimeOfDay deadline;
   String todoFormat = '';
+
+  @override
+  void initState(){
+    super.initState();
+    time = TimeOfDay.now();
+  }
+
+  Future<Null> selectTime (BuildContext context) async {
+    deadline = await showTimePicker(
+        context: context,
+        initialTime: time
+    );
+
+    if(deadline != null){
+      setState(() {
+        time = deadline;
+      });
+    }
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,14 +144,16 @@ class _TodoFormState extends State<TodoForm> {
                                 });
                               }),
                           inputFile(
-                              labelhint: "E.g 3pm",
+                              readOnly: true,
                               label: "Deadline:",
-                              validator: (val) => val.isEmpty
-                                  ? 'Please enter time for upcoming event'
-                                  : null,
-                              onChanged: (val) {
-                                setState(() => time = val);
-                              }),
+//                              validator: (val) => val.isEmpty
+//                                  ? 'Please enter time for upcoming event'
+//                                  : null,
+                              onTap: (){
+                                selectTime(context);
+                              },
+                              labelhint: "${time.format(context)}" == '' ? "Select Time..." : "${time.format(context)}",
+                              ),
 
 //                          dropdown(
 //                            label: "Try",
@@ -158,7 +182,7 @@ class _TodoFormState extends State<TodoForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         todoFormat =
-                            "Hi grade $grade $section for your activity for today your task is to $activity and submit it before $time";
+                            "Hi grade $grade $section for your activity for today your task is to $activity and submit it before ${time.format(context)}";
 
                         Navigator.push(
                             context,
