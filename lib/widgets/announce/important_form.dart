@@ -109,7 +109,7 @@ class _ImportantformState extends State<Importantform> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-              image: AssetImage('images/Important.png'),
+              image: AssetImage('images/important.png'),
               height: 10.0,
               width: 40.0,
             ),

@@ -92,7 +92,7 @@ class _ReminderFormState extends State<ReminderForm> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Image(
-              image: AssetImage('images/Reminder.png'),
+              image: AssetImage('images/reminder.png'),
               height: 10.0,
               width: 40.0,
             ),
